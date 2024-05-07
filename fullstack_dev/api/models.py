@@ -2,6 +2,7 @@ from django.db import models
 
 class Professor(models.Model):
     professorID = models.BigAutoField(primary_key=True)
+    professorCode = models.IntegerField(default=0)
     lastName = models.CharField(max_length=32)
     firstName = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
