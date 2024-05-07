@@ -2,9 +2,12 @@ from django.db import models
 
 class Professor(models.Model):
     professorID = models.BigAutoField(primary_key=True)
-    professorCode = models.IntegerField(default=0)
+    professorCode = models.IntegerField()
     lastName = models.CharField(max_length=32)
     firstName = models.CharField(max_length=64)
+    program = models.CharField(max_length=128)
+    division = models.CharField(max_length=128)
+    schoolYear = models.CharField(max_length=128)
     email = models.EmailField(max_length=64)
     username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
