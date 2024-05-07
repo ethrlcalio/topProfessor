@@ -13,7 +13,7 @@ const Profile = () => {
   }, [professorCode]);
 
   const fetchProfessorData = () => {
-    fetch(`http://127.0.0.1:8000/professors/api/professor-data/?professorCode=${professorCode}`)
+    fetch(`http://127.0.0.1:8000/api/professor-data/?professorCode=${professorCode}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Professor not found');

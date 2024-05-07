@@ -15,7 +15,7 @@ class Professor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Student(models.Model):
-    studentID = models.BigAutoField(primary_key=True)
+    studentID = models.IntegerField(primary_key=True)
     lastName = models.CharField(max_length=32)
     firstName = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
@@ -24,7 +24,7 @@ class Student(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Class(models.Model):
-    classID = models.BigAutoField(primary_key=True)
+    classID = models.IntegerField(primary_key=True)
     className = models.CharField(max_length=128)
     professorID = models.ForeignKey(Professor, on_delete=models.CASCADE)
     startTime = models.TimeField()
