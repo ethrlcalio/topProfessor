@@ -10,9 +10,9 @@
 
 ## Devnotes:
 
-Database: PostgreSQL
-Web Framework: Django REST
-Frontend: React
+- **Database**: PostgreSQL
+- **Web Framework**: Django REST
+- **Frontend**: React
 
 ## Dependencies:
 - **NodeJS** --> https://nodejs.org/en/download/current
