@@ -1,8 +1,10 @@
+// LoginModal.jsx
+
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const Modal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your form submission logic here
@@ -11,9 +13,9 @@ const Modal = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg relative">
-            <div className="flex justify-between items-center mb-4">
+        <div className="login-modal-overlay"> {/* Use a unique class name for overlay */}
+          <div className="login-modal"> {/* Use a unique class name for modal */}
+            <div className="modal-header">
               <h2 className="text-penn-blue text-xl font-bold">Login</h2>
               <FontAwesomeIcon
                 icon={faTimes}
@@ -41,4 +43,4 @@ const Modal = ({ isOpen, onClose }) => {
   );
 };
 
-export default Modal;
+export default LoginModal;

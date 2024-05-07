@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Logo.png';
-import Modal from '../components/Modal';
+import LoginModal from '../components/LoginModal';
 
 function Navbar() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -56,7 +56,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <Modal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
+      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
     </nav>
   );
 }
