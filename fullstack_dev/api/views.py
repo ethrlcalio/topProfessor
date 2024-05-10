@@ -150,3 +150,26 @@ def get_rating_data(request):
             return JsonResponse({'error': 'Rating not found'}, status=404)
     else:
         return JsonResponse({'error': 'Class ID is required'}, status=400)
+    
+def save_rating_data(request):
+    if request.method == 'POST':
+        class_id = request.POST.get('classID')
+        student_id = request.POST.get('studentID')
+        rating_value = request.POST.get('rating')
+
+        if class_id and student_id and rating_value:
+            try:
+                rating = Rating.objects.create(
+                    classID_id=class_id,
+                    studentID_id=student_id,
+                    rating=rating_value
+                )
+                # Optionally, you can serialize the created rating object
+                serializer = RatingSerializer(rating)
+                return JsonResponse(serializer.data)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=400)
+        else:
+            return JsonResponse({'error': 'Class ID, Student ID, and Rating are required'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

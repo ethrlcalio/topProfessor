@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProfessorView, StudentView, ClassView, DaysView, ScheduleView, RatingView
+from .views import ProfessorView, StudentView, ClassView, DaysView, ScheduleView, RatingView, save_rating_data
 from . import views
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/days-data/', views.get_days_data, name='days_data'),
     path('api/schedule-data/', views.get_schedule_data, name='schedule_data'),
     path('api/rating-data/', views.get_rating_data, name='rating_data'),
+    path('api/save-rating-data/', save_rating_data, name='save_rating_data'),
 ]
