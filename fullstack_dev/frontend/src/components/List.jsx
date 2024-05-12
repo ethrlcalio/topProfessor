@@ -1,41 +1,62 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons"
+import React from "react";
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const List = () => {
-    return (
-        <table className='min-w-full text-left'>
-            <thead className="font-montserrat text-anti-flash text-xs/3 font-light bg-penn-blue">
+  return (
+    <div className="flex flex-col">
+      <div className="overflow-x-auto">
+        <div className="min-w-full">
+          <div className="overflow-hidden">
+            <table className="min-w-full text-left text-xs/3 font-light border rounded-lg overflow-hidden">
+              <thead className="font-montserrat text-anti-flash bg-penn-blue">
                 <tr>
-                    <th className='w-10/12 py-2 px-4 text-left'>Name</th>
-                    <th className='w-1/12 py-2 px-4 text-left'>Department</th>
-                    <th className='w-1/12 py-2 px-4 text-left'>Overall Rating</th>
+                  <th scope="col" className="w-1/12 px-4 py-3">
+                    
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Faculty Name
+                  </th>
+                  <th scope="col" className="px-4 py-3">
+                    Department
+                  </th>
+                  <th scope="col" className="w-1/12 px-4 py-3">
+                    Overall Rating
+                  </th>
                 </tr>
-            </thead>
-            <tbody className="font-montserrat text-sm/4 font-light">
-                <tr>
-                    <td className="flex flex-row items-center py-2 px-6 gap-1">
-                        <FontAwesomeIcon icon={faUserCircle} className="h-8 aspect-square text-penn-blue"/>
-                        <p className="grow bg-red-300">Hello</p>
-                    </td>
-                    <td className="bg-red-300 py-3 px-4"></td>
-                </tr>
-                
-            </tbody>
-        </table>
-      /*<div className='w-full flex flex-row border border-black items-center bg-white py-3 px-6 gap-4'>
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="text-anti-flash h-8 aspect-square text-penn-blue"
-        />
-        <div className='grow'>
-            <span>Name</span>
+              </thead>
+              <tbody>
+                <TableRow
+                  facultyName="Edrian Louis F. Nabos"
+                  department="Accountancy"
+                  overallRating="2.5"
+                />
+                <TableRow
+                  facultyName="Edrian Louis F. Nabos"
+                  department="Accountancy"
+                  overallRating="2.5"
+                />
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div>
-            Overall Rating
-        </div>
-    </div>*/
-  )
-}
+      </div>
+    </div>
+  );
+};
 
-export default List
+const TableRow = ({ facultyName, department, overallRating }) => {
+  return (
+    <tr className="border-b bg-neutral-100 hover:bg-gray-200 cursor-pointer">
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">
+        <FontAwesomeIcon icon={faUserCircle} className="h-5 w-5 text-penn-blue" />
+      </td>
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">{facultyName}</td>
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">{department}</td>
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">{overallRating}</td>
+    </tr>
+  );
+};
+
+export default List;

@@ -1,5 +1,6 @@
 import React from "react";
 import Profile from "../../components/Profile";
+import FacultyProfile from "../../components/FacultyProfile";
 import MajorRating from "../../components/MajorRating";
 import MinorRating from "../../components/MinorRating";
 import AddButton from "../../components/AddButton";
@@ -17,9 +18,9 @@ const ProfessorProfile = () => {
                 <MajorRating />
               </div>
               <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
-                <MinorRating />
-                <MinorRating />
-                <MinorRating />
+                <MinorRating metric="Teaching Proficiency" />
+                <MinorRating metric="Teaching" />
+                <MinorRating metric="Attendance" />
               </div>
             </div>
             {/* Second Row */}
@@ -36,9 +37,8 @@ const ProfessorProfile = () => {
               <EmptyBox />
             </div>
           </div>
-
           <div class="w-1/3 h-min bg-white rounded-xl overflow-x-hidden shadow-md">
-            <Profile />
+            <FacultyProfile />
           </div>
         </div>
       </div>
