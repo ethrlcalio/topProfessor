@@ -14,9 +14,12 @@ const AddButton = () => {
 
   return (
     <>
-      <button className="w-full bg-penn-blue text-anti-flash text-md font-semibold hover:bg-mustard hover:text-penn-blue font-montserrat px-4 py-2 rounded-md" onClick={openModal}>
+      {!isModalOpen && (
+        <button className="w-full bg-penn-blue text-anti-flash text-md font-semibold hover:bg-mustard hover:text-penn-blue font-montserrat px-4 py-2 rounded-md" onClick={openModal}>
         Rate
       </button>
+      )}
+      
       <RatingModal isOpen={isModalOpen} onClose={closeModal} /> {/* Render the RatingModal component */}
     </>
   );

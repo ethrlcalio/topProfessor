@@ -1,22 +1,7 @@
 import React from 'react';
 
 const MinorRating = ({ metric }) => {
-  let text;
-  
-  // Depending on the value of the prop 'metric', set the appropriate text
-  switch(metric) {
-    case 'Teaching Proficiency':
-      text = 'Teaching Proficiency';
-      break;
-    case 'Teaching':
-      text = 'Teaching';
-      break;
-    case 'Attendance':
-      text = 'Attendance';
-      break;
-    default:
-      text = '';
-  }
+  let text = metric;
 
   return (
     <div className="flex flex-row gap-4 px-4 py-2 justify-center items-center">

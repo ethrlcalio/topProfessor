@@ -48,7 +48,7 @@ const RatingModal = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className="modal-overlay"> {/* Use a unique class name for overlay */}
-          <div className="modal p-6"> {/* Use a unique class name for modal */}
+          <div className="modal p-6 font-montserrat"> {/* Use a unique class name for modal */}
             <div className="modal-header flex justify-between items-center mb-4">
               <h2 className="text-penn-blue text-xl font-bold">Please rate your professor honestly.</h2>
               <FontAwesomeIcon
@@ -63,7 +63,7 @@ const RatingModal = ({ isOpen, onClose }) => {
                 {renderStars('teachingProficiency')}
               </div>
               <div className="flex mb-4">
-                <span className="mr-4">Teaching:</span>
+                <span className="mr-4">Availability & Responsiveness</span>
                 {renderStars('teaching')}
               </div>
               <div className="flex mb-4">

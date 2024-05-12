@@ -7,9 +7,12 @@ import AddButton from "../../components/AddButton";
 import EmptyBox from "../../components/EmptyBox";
 
 const ProfessorProfile = () => {
+  const metrics = ["Teaching Proficiency", "Availability & Responsiveness", "Attendance"];
+  {/* Testing Context providers */}
+  
   return (
     <div class="bg-anti-flash min-h-full">
-      <div id="content" class="w-full flex justify-center items-center pt-12">
+      <div id="content" className="w-full flex justify-center items-center pt-12">
         <div class="w-2/3 flex flex-col-2 gap-8">
           <div class="w-2/3 h-full flex flex-col gap-4">
             {/* First Row */}
@@ -18,9 +21,9 @@ const ProfessorProfile = () => {
                 <MajorRating />
               </div>
               <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
-                <MinorRating metric="Teaching Proficiency" />
-                <MinorRating metric="Teaching" />
-                <MinorRating metric="Attendance" />
+                {metrics.map((metricEntry, index) =>(
+                  <MinorRating key={index} metric={metricEntry}/>
+                ))}
               </div>
             </div>
             {/* Second Row */}
