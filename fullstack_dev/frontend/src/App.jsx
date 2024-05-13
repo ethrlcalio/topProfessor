@@ -9,6 +9,7 @@ import Default from './pages/Home/Default'
 import Login from './pages/Login/Login'
 import Faculty from './pages/Faculty/Faculty'
 
+
 function App() {
   return (
     <>
