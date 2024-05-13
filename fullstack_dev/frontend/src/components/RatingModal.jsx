@@ -5,7 +5,7 @@ import { faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 const RatingModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     teachingProficiency: '',
-    teaching: '',
+    availabilityResponsiveness: '',
     attendance: '',
     additionalComments: ''
   });
@@ -21,7 +21,7 @@ const RatingModal = ({ isOpen, onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form submitted with:', formData);
-    onClose(); // Close the modal after form submission
+    onClose();
   };
 
   const renderStars = (metric) => {
@@ -44,6 +44,15 @@ const RatingModal = ({ isOpen, onClose }) => {
     return stars;
   };
 
+  const reset = () => {
+    setFormData({
+      teachingProficiency: '',
+      availabilityResponsiveness: '',
+      attendance: '',
+      additionalComments: ''
+    })
+  }
+
   return (
     <>
       {isOpen && (
@@ -54,24 +63,27 @@ const RatingModal = ({ isOpen, onClose }) => {
               <FontAwesomeIcon
                 icon={faTimes}
                 className="cursor-pointer text-jet hover:text-gray p-1"
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  reset();
+                }}
               />
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="flex mb-4">
-                <span className="mr-4">Teaching Proficiency:</span>
-                {renderStars('teachingProficiency')}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-row items-center gap-4">
+                <div>Teaching Proficiency:</div>
+                <div className="grow">{renderStars('teachingProficiency')}</div>
               </div>
-              <div className="flex mb-4">
-                <span className="mr-4">Availability & Responsiveness</span>
-                {renderStars('teaching')}
+              <div className="flex flex-row items-center gap-4">
+                <div>Availability & Responsiveness</div>
+                <div className="grow">{renderStars('availabilityResponsiveness')}</div>
               </div>
-              <div className="flex mb-4">
-                <span className="mr-4">Attendance:</span>
-                {renderStars('attendance')}
+              <div className="flex flex-row items-center gap-4">
+                <div>Attendance:</div>
+                <div className="grow">{renderStars('attendance')}</div>
               </div>
-              <div className="mb-4">
-                <label htmlFor="additionalComments" className="block mb-2 text-sm">Additional Comments:</label>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="additionalComments" className="block text-sm">Additional Comments:</label>
                 <textarea id="additionalComments" name="additionalComments" rows="4" cols="50" value={formData.additionalComments} onChange={(e) => handleChange(e, 'additionalComments')} className="border rounded px-4 py-2 w-full"></textarea>
               </div>
               <div className="text-center">

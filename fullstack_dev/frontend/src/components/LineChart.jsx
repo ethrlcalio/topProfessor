@@ -37,29 +37,26 @@ const LineChart = () => {
         yAxis: {
           type: 'value'
         },
+        //Temporary values to be replaced with data from database
         series: [
           {
             name: 'Overall Rating',
             type: 'line',
-            stack: 'Total',
             data: [3, 2.5, 3.5, 4]
           },
           {
             name: 'Teaching Proficiency',
             type: 'line',
-            stack: 'Total',
             data: [2.66, 3.5, 3, 3.66]
           },
           {
             name: 'Availability & Responsiveness',
             type: 'line',
-            stack: 'Total',
             data: [1.5, 2, 2.66, 2.5]
           },
           {
             name: 'Attendance',
             type: 'line',
-            stack: 'Total',
             data: [3, 3.5, 2.66, 2.5]
           },
         ]

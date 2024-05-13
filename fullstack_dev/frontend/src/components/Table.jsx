@@ -1,7 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 
 const Table = () => {
+  //Temporary values to be replaced with data from database
+  const [subjects, setSubjects] = useState([{
+    to: "/professor",
+    classCode: "4-319",
+    subjectCode: "CS 3246",
+    course: "ELECTIVE MATH/CS ELECTIVE 1",
+    instructor: "Dwight Ian De Jesus",
+    timeSlot: "5:50P-8:20P F613C MW",
+}]);
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -25,22 +34,27 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody>
-                <TableRow
+                {
+                  subjects.map((subject, index) => (
+                    <TableRow key= {index}
+                    to={subject.to}
+                    classCode={subject.classCode}
+                    subjectCode={subject.subjectCode}
+                    course={subject.course}
+                    instructor={subject.instructor}
+                    timeSlot={subject.timeSlot}
+                />
+                  ))
+                }
+                
+                {/*<TableRow
                   to="/professor"
                   classCode="4-319"
                   subjectCode="CS 3246"
                   course="ELECTIVE MATH/CS ELECTIVE 1"
                   instructor="Dwight Ian De Jesus"
                   timeSlot="5:50P-8:20P F613C MW"
-                />
-                <TableRow
-                  to="/professor"
-                  classCode="4-319"
-                  subjectCode="CS 3246"
-                  course="ELECTIVE MATH/CS ELECTIVE 1"
-                  instructor="Dwight Ian De Jesus"
-                  timeSlot="5:50P-8:20P F613C MW"
-                />
+              />*/}
               </tbody>
             </table>
           </div>
