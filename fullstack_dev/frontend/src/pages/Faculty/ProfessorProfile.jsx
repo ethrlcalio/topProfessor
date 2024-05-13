@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import Profile from "../../components/Profile";
 import FacultyProfile from "../../components/FacultyProfile";
 import MajorRating from "../../components/MajorRating";
 import MinorRating from "../../components/MinorRating";
 import AddButton from "../../components/AddButton";
 import EmptyBox from "../../components/EmptyBox";
+import {MetricContext} from '../../context/MetricContext'
+import LineChart from "../../components/LineChart";
 
 const ProfessorProfile = () => {
-  const metrics = ["Teaching Proficiency", "Availability & Responsiveness", "Attendance"];
-  {/* Testing Context providers */}
+  const {metrics, setMetrics} = useContext(MetricContext);
   
   return (
     <div class="bg-anti-flash min-h-full">
@@ -29,6 +30,9 @@ const ProfessorProfile = () => {
             {/* Second Row */}
             <div class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
               <AddButton />
+            </div>
+            <div class="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
+              <LineChart />
             </div>
             <div class="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
               <EmptyBox />

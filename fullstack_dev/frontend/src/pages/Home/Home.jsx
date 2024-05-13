@@ -1,6 +1,7 @@
 import React from 'react'
 import Table from '../../components/Table'
 import Profile from '../../components/Profile'
+import LineChart from '../../components/LineChart'
 
 const Home = () => {
   return (

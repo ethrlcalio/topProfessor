@@ -1,10 +1,10 @@
-import React, {createContext, useState} from React;
+import React, {createContext, useState} from 'react';
 
 export const MetricContext = createContext();
 
 const MetricProvider = ({children}) => {
-    const metrics = useState([
-        "Teahcing Proficiency",
+    const [metrics, setMetrics] = useState([
+        "Teaching Proficiency",
         "Availability & Responsiveness",
         "Attendance"
     ]);
@@ -12,3 +12,5 @@ const MetricProvider = ({children}) => {
         {children}
     </MetricContext.Provider>
 }
+
+export default MetricProvider;
