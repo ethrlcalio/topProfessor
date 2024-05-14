@@ -13,27 +13,27 @@ const LoginModal = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (
-        <div className="login-modal-overlay"> {/* Use a unique class name for overlay */}
-          <div className="login-modal"> {/* Use a unique class name for modal */}
-            <div className="modal-header">
-              <h2 className="text-penn-blue text-xl font-bold">Login</h2>
+        <div className="login-modal-overlay">
+          <div className="login-modal">
+            <div className="modal-header pl-6 pr-6">
+              <h2 className="text-penn-blue text-2xl font-bold">Login</h2>
               <FontAwesomeIcon
                 icon={faTimes}
                 className="cursor-pointer text-jet hover:text-gray"
                 onClick={onClose}
               />
             </div>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="username" className="block mb-2 text-sm">Username</label>
-                <input type="text" id="username" name="username" className="border rounded px-4 py-2 mb-4" />
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center px-6 py-8">
+              <div className="mb-4 w-full">
+                <label htmlFor="username" className="block mb-2 text-sm font-montserrat">Username</label>
+                <input type="text" id="username" name="username" className="border rounded w-full px-4 py-2" />
               </div>
-              <div>
-                <label htmlFor="password" className="block mb-2 text-sm">Password</label>
-                <input type="password" id="password" name="password" className="border rounded px-4 py-2 mb-4" />
+              <div className="mb-4 w-full">
+                <label htmlFor="password" className="block mb-2 text-sm font-montserrat">Password</label>
+                <input type="password" id="password" name="password" className="border rounded w-full px-4 py-2" />
               </div>
-              <div className="text-center">
-                <button type="submit" className="bg-penn-blue text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Login</button>
+              <div className="w-full flex justify-center">
+                <button type="submit" className="bg-penn-blue text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-6 py-2 rounded-md text-md font-semibold">Login</button>
               </div>
             </form>
           </div>
