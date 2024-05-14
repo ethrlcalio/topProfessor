@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import List from '../../components/List'
 import Profile from '../../components/Profile'
+import {FacultyContext} from '../../context/FacultyContext'
 
 const Faculty = () => {
+  //const {professors, setProfessors} = useState(FacultyContext);
   return (
     <div class="bg-anti-flash min-h-full">
       <div id="content" class="w-full flex justify-center items-center pt-12">
