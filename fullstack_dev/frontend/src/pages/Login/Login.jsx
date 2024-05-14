@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal from '../../components/Modal';
+import LoginModal from '../../components/LoginModal';
 
 const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <div>
       <button onClick={openModal}>Login</button>
-      <Modal isOpen={isModalOpen} onClose={closeModal} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
+      <LoginModal isOpen={isModalOpen} onClose={closeModal} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
     </div>
   );
 };
