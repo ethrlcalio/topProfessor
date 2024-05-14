@@ -8,3 +8,7 @@ from .models import Professor
 class ProfessorView(generics.CreateAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
+
+class ProfessorListView(generics.ListAPIView):
+    queryset = Professor.objects.all()
+    serializer_class = ProfessorSerializer

@@ -1,15 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {FacultyContext} from '../context/FacultyContext'
 
 const List = () => {
-  //Temporary values to be replaced with data from database
-  const [professors, setProfessors] = useState([{
-    facultyName: "Edrian Louis F. Nabos",
-    department: "Accountancy",
-    overallRating: "2.5",
-  }])
+  const {professors, setProfessors} = useContext(FacultyContext);
+  console.log(professors);
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -31,12 +28,12 @@ const List = () => {
               </thead>
               <tbody>
                 {
-                  professors.map((professor, index) => (
+                  professors.map((professorEntry, index) => (
                     <TableRow
                       key={index}
-                      facultyName={professor.facultyName}
-                      department={professor.department}
-                      overallRating={professor.overallRating}
+                      facultyName={professorEntry.firstName + " " + professorEntry.lastName}
+                      department={professorEntry.email}
+                      overallRating={professorEntry.password}
                     />
                   ))
                 }
