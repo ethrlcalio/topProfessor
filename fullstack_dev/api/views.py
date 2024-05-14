@@ -1,10 +1,33 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework import generics
-from .serializers import ProfessorSerializer, StudentSerializer, ClassSerializer, DaysSerializer, ScheduleSerializer, RatingSerializer
+from .serializers import ProfessorSerializer, StudentSerializer, ClassSerializer, DaysSerializer, ScheduleSerializer, RatingSerializer, RegisterSerializer
 from .models import Professor, Student, Class, Days, Schedule, Rating
+from django.contrib.auth.models import User
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
-# Create your views here.
+class CustomLoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            })
+        else:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
 
 class ProfessorView(generics.CreateAPIView):
     queryset = Professor.objects.all()
@@ -173,3 +196,14 @@ def save_rating_data(request):
             return JsonResponse({'error': 'Class ID, Student ID, and Rating are required'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    
+def delete_rating(request, rating_id):
+    if request.method == 'DELETE':
+        try:
+            rating = Rating.objects.get(ratingID=rating_id)
+            rating.delete()
+            return JsonResponse({'message': 'Rating deleted successfully'}, status=200)
+        except Rating.DoesNotExist:
+            return JsonResponse({'error': 'Rating not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
