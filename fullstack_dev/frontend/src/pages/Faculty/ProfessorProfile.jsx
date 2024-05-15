@@ -16,14 +16,31 @@ const ProfessorProfile = () => {
 
 
   const fetchData = async () => {
-    const response = await fetch(`http://127.0.0.1:8000/api/class-data/?classID=${1}`);
+    const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
     let data = await response.json();
-    setClassObj(data);
+    const filteredData  = data.filter(class_obj => class_obj.professorID == id);
+    setClassObj(filteredData);
+  }
+
+  const fetchRatings = async () => {
+    console.log(classObj);
+    if(classObj && classObj.length > 0){
+      await Promise.all(classObj.map(async (class_obj) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/rating-data/?classID=${class_obj.classID}`);
+        let data = await response.json();
+        console.log(data);
+      }))
+    }
   }
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    fetchRatings();
+  }, [classObj]);
+
   const {metrics, setMetrics} = useContext(MetricContext);
   
   return (
