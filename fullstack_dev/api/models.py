@@ -47,5 +47,8 @@ class Rating(models.Model):
     ratingID = models.BigAutoField(primary_key=True)
     classID = models.ForeignKey(Class, on_delete=models.CASCADE)
     studentID = models.ForeignKey(Student, on_delete=models.CASCADE)
-    rating = models.DecimalField(max_digits=3, decimal_places=2)
+    rating1 = models.DecimalField(max_digits=3, decimal_places=2)
+    rating2 = models.DecimalField(max_digits=3, decimal_places=2)
+    rating3 = models.DecimalField(max_digits=3, decimal_places=2)
+    comments = models.TextField(null=True, blank=True)
     
