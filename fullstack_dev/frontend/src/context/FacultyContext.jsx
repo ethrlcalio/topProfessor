@@ -24,7 +24,6 @@ const FacultyProvider = ({children}) => {
         }
       }
       fetchData();
-      console.log(professors);
     }, []);
 
     return <FacultyContext.Provider value={{professors, setProfessors }}>

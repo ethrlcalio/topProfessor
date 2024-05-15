@@ -75,7 +75,7 @@ const Table = () => {
                 {
                   schedule && schedule.map((schedule_obj, index) => (
                     <TableRow key= {index}
-                    to={schedule_obj.professorID}
+                    id={schedule_obj.professorID}
                     classCode={schedule_obj.classID}
                     course={schedule_obj.className}
                     instructor={schedule_obj.professorName}
@@ -92,9 +92,9 @@ const Table = () => {
   );
 };
 
-const TableRow = ({ to, classCode, subjectCode, course, instructor, timeSlot }) => {
+const TableRow = ({ id, classCode, subjectCode, course, instructor, timeSlot }) => {
   return (
-    <tr className="border-b bg-neutral-100 hover:bg-gray-200 cursor-pointer" onClick={() => window.location.href = to}>
+    <tr className="border-b bg-neutral-100 hover:bg-gray-200 cursor-pointer" onClick={() => window.location.href = `/professor/${id}`}>
       <td className="font-montserrat whitespace-nowrap px-4 py-3 font-md">{classCode}</td>
       <td className="font-montserrat whitespace-nowrap font-md px-4 py-3">
         <span>{course} <br /></span>

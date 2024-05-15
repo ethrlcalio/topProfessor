@@ -1,4 +1,5 @@
-import React, {useContext} from "react";
+import React, {useContext,useState, useEffect} from "react";
+import { useParams } from 'react-router-dom';
 import Profile from "../../components/Profile";
 import FacultyProfile from "../../components/FacultyProfile";
 import MajorRating from "../../components/MajorRating";
@@ -9,6 +10,20 @@ import {MetricContext} from '../../context/MetricContext'
 import LineChart from "../../components/LineChart";
 
 const ProfessorProfile = () => {
+  const {id} = useParams();
+  const [classObj, setClassObj] = useState(null);
+  const [ratings, setRatings] = useState(null);
+
+
+  const fetchData = async () => {
+    const response = await fetch(`http://127.0.0.1:8000/api/class-data/?classID=${1}`);
+    let data = await response.json();
+    setClassObj(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
   const {metrics, setMetrics} = useContext(MetricContext);
   
   return (
@@ -19,7 +34,7 @@ const ProfessorProfile = () => {
             {/* First Row */}
             <div className="w-full flex flex-row gap-4">
               <div className="h-full bg-white rounded-xl shadow-md py-6">
-                <MajorRating />
+                <MajorRating/>
               </div>
               <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
                 {metrics.map((metricEntry, index) =>(

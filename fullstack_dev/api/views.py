@@ -144,12 +144,12 @@ def get_rating_data(request):
     if class_id:
         try:
             rating = Rating.objects.get(classID=class_id)
-            data = {
+            data = [{
                 'ratingID': rating.ratingID,
                 'classID': rating.classID_id,
                 'studentID': rating.studentID_id,
                 'rating': rating.rating,
-            }
+            }]
             return JsonResponse(data)
         except Rating.DoesNotExist:
             return JsonResponse({'error': 'Rating not found'}, status=404)
