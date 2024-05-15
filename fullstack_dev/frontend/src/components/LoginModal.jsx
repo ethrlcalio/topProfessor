@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [id, setID] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,15 +16,26 @@ const LoginModal = ({ isOpen, onClose }) => {
         username,
         password,
       });
+      const {studentID, access} = response.data;
+      setID(studentID);
+
       const token = response.data.access;
       localStorage.setItem('token', token);
-      onClose(); // Close the modal or redirect to another page
-      console.log('Login successful!'); // Log successful login
+      onClose();
+      console.log('Login successful!'); 
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Login failed:', error.response.data.error);
-      // Handle login failure, such as displaying an error message
     }
   };
+
+  useEffect(() =>{
+    console.log(id);
+    sendDataToParent(isLoggedIn);
+    if(id){
+      window.location.href = `/home/${id}`
+    }
+  }, [isLoggedIn]);
 
   return (
     <>

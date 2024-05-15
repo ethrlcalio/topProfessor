@@ -42,6 +42,10 @@ function Navbar() {
     console.log("Form submitted with:", formData);
   };
 
+  const handleDatafromChild = (data) => {
+    setIsLoggedIn(data);
+  }
+
   return (
     <nav className="bg-penn-blue shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,7 +65,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} />
+      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} sendDataToParent={handleDatafromChild}/>
     </nav>
   );
 }

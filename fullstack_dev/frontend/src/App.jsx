@@ -19,7 +19,7 @@ function App() {
           <Navbar />
           <div className="flex-grow"> {/* Adjust the class name to `flex-grow` for flexibility */}
             <Routes>
-              <Route path="/home" element={<Home />} />
+              <Route path="/home/:id" element={<Home />} />
               <Route path="/professor/:id" element={<ProfessorProfile/>} />
               <Route path="/faculty" element={<Faculty />} />
               <Route path="/" element={<Default />} />

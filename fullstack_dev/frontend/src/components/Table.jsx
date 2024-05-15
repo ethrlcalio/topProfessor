@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 
-const Table = () => {
+const Table = ({id}) => {
+  let studentID = id;
   const [subjects, setSubjects] = useState(null);
   const [classObj, setClassObj] = useState(null);
   const [schedule, setSchedule] = useState(null);
 
   const fetchData = async () => {
-    const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${135922}`);
+    const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${studentID}`);
     let data = await response.json();
     setSubjects(data);
   }

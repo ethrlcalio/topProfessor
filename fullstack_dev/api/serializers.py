@@ -69,4 +69,4 @@ class ScheduleSerializer(serializers.ModelSerializer):
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ('ratingID', 'classID', 'studentID', 'rating')
+        fields = ('ratingID', 'classID', 'studentID', 'rating1', 'rating2' , 'rating3', 'rating4', 'comments')

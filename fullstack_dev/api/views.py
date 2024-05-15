@@ -17,8 +17,15 @@ class CustomLoginView(APIView):
 
         user = authenticate(username=username, password=password)
         if user:
+            try:
+                student = Student.objects.get(user_id=user)
+                studentID = student.studentID
+            except Student.DoesNotExist:
+                return Response({'error' : 'Student does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            
             refresh = RefreshToken.for_user(user)
             return Response({
+                'studentID': studentID,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             })
@@ -143,7 +150,7 @@ def get_rating_data(request):
 
     if class_id:
         try:
-            rating = Rating.objects.filter(classID=class_id)
+            ratings = Rating.objects.filter(classID=class_id)
             data = [{
                 'ratingID': rating.ratingID,
                 'classID': rating.classID_id,
@@ -153,7 +160,7 @@ def get_rating_data(request):
                 'rating3': rating.rating3,
                 'rating4': rating.rating4,
                 'comments': rating.comments,
-            }]
+            } for rating in ratings]
             return JsonResponse(data, safe=False)
         except Rating.DoesNotExist:
             return JsonResponse({'error': 'Rating not found'}, status=404)
