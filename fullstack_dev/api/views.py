@@ -138,24 +138,6 @@ def get_days_data(request):
     else:
         return JsonResponse({'error': 'Class ID is required'}, status=400)
 
-def get_schedule_data(request):
-    class_id = request.GET.get('classID')
-
-    if class_id:
-        try:
-            schedules = Schedule.objects.filter(classID=class_id)
-            data = [{
-                'scheduleID': schedule.scheduleID,
-                'classID': schedule.classID_id,
-                'studentID': schedule.studentID_id,
-                'created_at': schedule.created_at,
-            } for schedule in schedules]
-            return JsonResponse(data, safe=False)
-        except Schedule.DoesNotExist:
-            return JsonResponse({'error': 'Schedule not found'}, status=404)
-    else:
-        return JsonResponse({'error': 'Class ID is required'}, status=400)
-
 def get_rating_data(request):
     class_id = request.GET.get('classID')
 

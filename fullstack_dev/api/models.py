@@ -50,5 +50,6 @@ class Rating(models.Model):
     rating1 = models.DecimalField(max_digits=3, decimal_places=2)
     rating2 = models.DecimalField(max_digits=3, decimal_places=2)
     rating3 = models.DecimalField(max_digits=3, decimal_places=2)
+    rating4 = models.DecimalField(max_digits=3, decimal_places=2)
     comments = models.TextField(null=True, blank=True)
     
