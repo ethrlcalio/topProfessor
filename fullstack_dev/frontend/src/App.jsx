@@ -10,18 +10,17 @@ import Login from './pages/Login/Login';
 import Faculty from './pages/Faculty/Faculty';
 import MetricContextProvider from './context/MetricContext';
 import FacultyContextProvider from './context/FacultyContext';
-import ScheduleContextProvider from './context/ScheduleContext';
 
 function App() {
   return (
     <MetricContextProvider>
-      <ScheduleContextProvider>
+      <FacultyContextProvider>
         <div className='flex flex-col h-screen'>
           <Navbar />
           <div className="flex-grow"> {/* Adjust the class name to `flex-grow` for flexibility */}
             <Routes>
               <Route path="/home" element={<Home />} />
-              <Route path="/professor" element={<ProfessorProfile />} />
+              <Route path="/professor/:id" element={<ProfessorProfile/>} />
               <Route path="/faculty" element={<Faculty />} />
               <Route path="/" element={<Default />} />
               <Route path="/login" element={<Login />} />
@@ -30,7 +29,7 @@ function App() {
           <footer className="bg-anti-flash p-4">
           </footer>
         </div>
-      </ScheduleContextProvider>
+      </FacultyContextProvider>
     </MetricContextProvider>
   );
 }

@@ -7,9 +7,6 @@ const FacultyProvider = ({children}) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     
-    //REMOVE THIS
-    const [classID, setClassID] = useState(1);
-    
     useEffect(() => {
       const fetchData = async () => {
         try{
@@ -27,7 +24,6 @@ const FacultyProvider = ({children}) => {
         }
       }
       fetchData();
-      console.log(professors);
     }, []);
 
     return <FacultyContext.Provider value={{professors, setProfessors }}>

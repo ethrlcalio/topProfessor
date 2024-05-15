@@ -9,28 +9,18 @@ const ScheduleProvider = ({children}) => {
     
     //REMOVE THIS
     const [studentID, setStudentID] = useState(135922);
-    
-    useEffect(() => {
-      const fetchData = async () => {
-        try{
-          const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${studentID}`);
-          if(!response.ok){
-            throw new Error('HTTP error: Status ${response.status}');
-          }
-          let data = await response.json();
-          setProfessors(data);
-        }catch (err){
-          setError(err.message);
-          setProfessors(null);
-        }finally{
-          setLoading(false);
-        }
-      }
-      fetchData();
+    const fetchData = async () => {
+      const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${studentID}`);
+      let data = await response.json();
+      setProfessors(data);
       console.log(professors);
+    }
+
+    useEffect(() => {
+      fetchData();
     }, []);
 
-    return <ScheduleContext.Provider value={{professors, setProfessors }}>
+    return <ScheduleContext.Provider value={{professors, setProfessors}}>
       {children}
     </ScheduleContext.Provider>
 }

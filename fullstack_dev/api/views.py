@@ -54,11 +54,11 @@ class RatingView(generics.CreateAPIView):
     serializer_class = RatingSerializer
 
 def get_professor_data(request):
-    professor_code = request.GET.get('professorCode')
+    professor_id = request.GET.get('professorID')
 
-    if professor_code:
+    if professor_id:
         try:
-            professor = Professor.objects.get(professorCode=professor_code)
+            professor = Professor.objects.get(professorID=professor_id)
             data = {
                 'professorID': professor.professorID,
                 'professorCode': professor.professorCode,
@@ -69,7 +69,7 @@ def get_professor_data(request):
                 'schoolYear': professor.schoolYear,
                 'email': professor.email,
                 'username': professor.username,
-                'password': professor.password,
+                'password': professor.password, 
                 'position': professor.position,
                 'created_at': professor.created_at,
             }
@@ -144,12 +144,12 @@ def get_rating_data(request):
     if class_id:
         try:
             rating = Rating.objects.get(classID=class_id)
-            data = {
+            data = [{
                 'ratingID': rating.ratingID,
                 'classID': rating.classID_id,
                 'studentID': rating.studentID_id,
                 'rating': rating.rating,
-            }
+            }]
             return JsonResponse(data)
         except Rating.DoesNotExist:
             return JsonResponse({'error': 'Rating not found'}, status=404)
@@ -227,8 +227,6 @@ def get_classes(request):
     return JsonResponse(data, safe=False)
 
 def get_schedule_data(request):
-    #class_id = request.GET.get('classID')
-    #testing
     student_id = request.GET.get('studentID')
 
     if student_id:
