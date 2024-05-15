@@ -207,3 +207,75 @@ def delete_rating(request, rating_id):
             return JsonResponse({'error': 'Rating not found'}, status=404)
     else:
         return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
+    
+def get_professors(request):
+    professors = Professor.objects.all()
+    data=[]
+    
+    for professor in professors:
+        data.append({
+            'professorID': professor.professorID,
+            'professorCode': professor.professorCode,
+            'lastName': professor.lastName,
+            'firstName': professor.firstName,
+            'program': professor.program,
+            'division': professor.division,
+            'schoolYear': professor.schoolYear,
+            'email': professor.email,
+            'username': professor.username,
+            'password': professor.password,
+            'position': professor.position,
+            'created_at': professor.created_at,
+        })
+    return JsonResponse(data, safe=False)
+
+def get_classes(request):
+    classes = Class.objects.all()
+    data=[]
+
+    for class_obj in classes:
+        data.append({
+            'classID': class_obj.classID,
+            'className': class_obj.className,
+            'professorID': class_obj.professorID_id,
+            'startTime': class_obj.startTime,
+            'endTime': class_obj.endTime,
+            'created_at': class_obj.created_at,
+        })
+    return JsonResponse(data, safe=False)
+
+def get_schedule_data(request):
+    #class_id = request.GET.get('classID')
+    #testing
+    student_id = request.GET.get('studentID')
+
+    if student_id:
+        try:
+            schedules = Schedule.objects.filter(studentID=student_id)
+            data = [{
+                'scheduleID': schedule.scheduleID,
+                'classID': schedule.classID_id,
+                'studentID': schedule.studentID_id,
+                'created_at': schedule.created_at,
+            } for schedule in schedules]
+            return JsonResponse(data, safe=False)
+        except Schedule.DoesNotExist:
+            return JsonResponse({'error': 'Schedule not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Class ID is required'}, status=400)
+    
+def get_students(request):
+    students = Student.objects.all()
+    data=[]
+
+    for student in students:
+        data.append({
+            'studentID': student.studentID,
+            'lastName': student.lastName,
+            'firstName': student.firstName,
+            'email': student.email,
+            'username': student.username,
+            'password': student.password,
+            'created_at': student.created_at,
+        })
+    return JsonResponse(data, safe=False)
