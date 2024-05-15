@@ -1,19 +1,19 @@
 import React, {useEffect, useState, createContext} from 'react'
 
-export const FacultyContext = createContext();
+export const ScheduleContext = createContext();
 
-const FacultyProvider = ({children}) => {
+const ScheduleProvider = ({children}) => {
     const [professors, setProfessors] = useState([{}]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     
     //REMOVE THIS
-    const [classID, setClassID] = useState(1);
+    const [studentID, setStudentID] = useState(135922);
     
     useEffect(() => {
       const fetchData = async () => {
         try{
-          const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
+          const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${studentID}`);
           if(!response.ok){
             throw new Error('HTTP error: Status ${response.status}');
           }
@@ -30,9 +30,9 @@ const FacultyProvider = ({children}) => {
       console.log(professors);
     }, []);
 
-    return <FacultyContext.Provider value={{professors, setProfessors }}>
+    return <ScheduleContext.Provider value={{professors, setProfessors }}>
       {children}
-    </FacultyContext.Provider>
+    </ScheduleContext.Provider>
 }
 
-export default FacultyProvider
+export default ScheduleProvider
