@@ -56,6 +56,28 @@ def get_professor_data(request):
     else:
         return JsonResponse({'error': 'Professor code is required'}, status=400)
     
+def get_professors(request):
+    professors = Professor.objects.all()
+    data=[]
+    
+    for professor in professors:
+        data.append({
+            'professorID': professor.professorID,
+            'professorCode': professor.professorCode,
+            'lastName': professor.lastName,
+            'firstName': professor.firstName,
+            'program': professor.program,
+            'division': professor.division,
+            'schoolYear': professor.schoolYear,
+            'email': professor.email,
+            'username': professor.username,
+            'password': professor.password,
+            'position': professor.position,
+            'created_at': professor.created_at,
+        })
+    return JsonResponse(data, safe=False)
+
+
 def get_student_data(request):
     student_id = request.GET.get('studentID')
 
@@ -76,6 +98,22 @@ def get_student_data(request):
             return JsonResponse({'error': 'Student not found'}, status=404)
     else:
         return JsonResponse({'error': 'Student ID is required'}, status=400)
+    
+def get_students(request):
+    students = Student.objects.all()
+    data=[]
+
+    for student in students:
+        data.append({
+            'studentID': student.studentID,
+            'lastName': student.lastName,
+            'firstName': student.firstName,
+            'email': student.email,
+            'username': student.username,
+            'password': student.password,
+            'created_at': student.created_at,
+        })
+    return JsonResponse(data, safe=False)
 
 def get_class_data(request):
     class_id = request.GET.get('classID')
@@ -96,7 +134,22 @@ def get_class_data(request):
             return JsonResponse({'error': 'Class not found'}, status=404)
     else:
         return JsonResponse({'error': 'Class ID is required'}, status=400)
-    
+
+def get_classes(request):
+    classes = Class.objects.all()
+    data=[]
+
+    for class_obj in classes:
+        data.append({
+            'classID': class_obj.classID,
+            'className': class_obj.className,
+            'professorID': class_obj.professorID_id,
+            'startTime': class_obj.startTime,
+            'endTime': class_obj.endTime,
+            'created_at': class_obj.created_at,
+        })
+    return JsonResponse(data, safe=False)
+
 def get_days_data(request):
     class_id = request.GET.get('classID')
 
@@ -116,11 +169,13 @@ def get_days_data(request):
         return JsonResponse({'error': 'Class ID is required'}, status=400)
 
 def get_schedule_data(request):
-    class_id = request.GET.get('classID')
+    #class_id = request.GET.get('classID')
+    #testing
+    student_id = request.GET.get('studentID')
 
-    if class_id:
+    if student_id:
         try:
-            schedules = Schedule.objects.filter(classID=class_id)
+            schedules = Schedule.objects.filter(studentID=student_id)
             data = [{
                 'scheduleID': schedule.scheduleID,
                 'classID': schedule.classID_id,

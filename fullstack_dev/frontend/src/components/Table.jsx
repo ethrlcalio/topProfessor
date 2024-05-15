@@ -1,16 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
 import { Link } from 'react-router-dom';
+import {ScheduleContext} from '../context/ScheduleContext'
 
 const Table = () => {
   //Temporary values to be replaced with data from database
-  const [subjects, setSubjects] = useState([{
-    to: "/professor",
-    classCode: "4-319",
-    subjectCode: "CS 3246",
-    course: "ELECTIVE MATH/CS ELECTIVE 1",
-    instructor: "Dwight Ian De Jesus",
-    timeSlot: "5:50P-8:20P F613C MW",
-}]);
+  const {subjects, setSubjects} = useContext(ScheduleContext);
+  console.log(subjects);
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -37,12 +32,12 @@ const Table = () => {
                 {
                   subjects.map((subject, index) => (
                     <TableRow key= {index}
-                    to={subject.to}
-                    classCode={subject.classCode}
-                    subjectCode={subject.subjectCode}
-                    course={subject.course}
-                    instructor={subject.instructor}
-                    timeSlot={subject.timeSlot}
+                    to={""}
+                    classCode={subject.classID}
+                    subjectCode={subject.classID}
+                    course={subject.scheduleID}
+                    instructor={subject.scheduleID}
+                    timeSlot={subject.scheduleID}
                 />
                   ))
                 }
