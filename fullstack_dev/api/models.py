@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Professor(models.Model):
     professorID = models.BigAutoField(primary_key=True)
@@ -15,6 +16,7 @@ class Professor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     studentID = models.IntegerField(primary_key=True)
     lastName = models.CharField(max_length=32)
     firstName = models.CharField(max_length=64)

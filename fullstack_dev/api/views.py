@@ -148,7 +148,11 @@ def get_rating_data(request):
                 'ratingID': rating.ratingID,
                 'classID': rating.classID_id,
                 'studentID': rating.studentID_id,
-                'rating': rating.rating,
+                'rating1': rating.rating1,
+                'rating2': rating.rating2,
+                'rating3': rating.rating3,
+                'rating4': rating.rating4,
+                'comments': rating.comments,
             }]
             return JsonResponse(data, safe=False)
         except Rating.DoesNotExist:
