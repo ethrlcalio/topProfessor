@@ -1,6 +1,5 @@
 import React, {useContext,useState, useEffect} from "react";
 import { useParams } from 'react-router-dom';
-import Profile from "../../components/Profile";
 import FacultyProfile from "../../components/FacultyProfile";
 import MajorRating from "../../components/MajorRating";
 import MinorRating from "../../components/MinorRating";
@@ -19,7 +18,6 @@ const ProfessorProfile = () => {
     availabilityResponsiveness: null,
     attendance: null,
   });
-
 
   const fetchData = async () => {
     const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
@@ -58,7 +56,6 @@ const ProfessorProfile = () => {
         availabilityResponsiveness: ave3,
         attendance: ave4
       }));
-      console.log(ratings);
     }
   }
 
@@ -87,7 +84,7 @@ const ProfessorProfile = () => {
                 <MajorRating rating={ratings.overallRating}/>
               </div>
               <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
-                {metrics.map((metricEntry, index) =>(
+                {ratings && metrics.map((metricEntry, index) =>(
                   <MinorRating key={index} metric={metricEntry} rating={ratings}/>
                 ))}
               </div>

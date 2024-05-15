@@ -20,6 +20,8 @@ class Student(models.Model):
     studentID = models.IntegerField(primary_key=True)
     lastName = models.CharField(max_length=32)
     firstName = models.CharField(max_length=64)
+    program = models.CharField(max_length=128)
+    division = models.CharField(max_length=128)
     email = models.EmailField(max_length=64)
     username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)

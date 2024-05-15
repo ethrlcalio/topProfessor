@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Logo.png';
 import LoginModal from '../components/LoginModal';
 
 function Navbar() {
+  const [id, setID] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -11,13 +12,18 @@ function Navbar() {
     password: ''
   });
 
+  useEffect(() => {
+    const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    setIsLoggedIn(loggedIn || false);
+    console.log(isLoggedIn);
+  }, []);
+
   const openLogin = () => {
     setIsLoginOpen(true);
   };
 
   const closeLogin = () => {
     setIsLoginOpen(false);
-    // Reset form data
     setFormData({
       username: '',
       password: ''
@@ -26,6 +32,8 @@ function Navbar() {
 
   const logOut = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('id');
   }
 
   const handleChange = (event) => {
@@ -38,13 +46,33 @@ function Navbar() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your form submission logic here
     console.log("Form submitted with:", formData);
   };
 
   const handleDatafromChild = (data) => {
-    setIsLoggedIn(data);
+    if(data){
+      setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
+    }
   }
+
+  useEffect(() => {
+    const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    if(!isLoggedIn && !loggedIn && window.location.pathname !== '/'){
+      window.location.href = `/`;
+    }
+  }, [isLoggedIn])
+
+  const handleID = (data) => {
+    if(data){
+      localStorage.setItem('id', JSON.stringify(data));
+    }
+  }
+
+  useEffect(() => {
+    const hasID = JSON.parse(localStorage.getItem('id'));
+    setID(hasID);
+  }, [id]);
 
   return (
     <nav className="bg-penn-blue shadow">
@@ -57,15 +85,15 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              {isLoggedIn && <Link to="/" className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
-              {isLoggedIn && <Link to="/faculty" className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
+              {isLoggedIn && <Link to={`/home/${id}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
+              {isLoggedIn && <Link to={`/faculty/${id}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
               {!isLoggedIn && <button onClick={openLogin} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log In</button>}
               {isLoggedIn && <button onClick={logOut} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log Out</button>}
             </div>
           </div>
         </div>
       </div>
-      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} sendDataToParent={handleDatafromChild}/>
+      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} sendDataToParent={handleDatafromChild} sendIDToParent={handleID}/>
     </nav>
   );
 }

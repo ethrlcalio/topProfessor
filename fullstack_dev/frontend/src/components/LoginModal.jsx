@@ -17,8 +17,9 @@ const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
         password,
       });
       const {studentID, access} = response.data;
+      console.log(studentID);
       setID(studentID);
-
+      
       const token = response.data.access;
       localStorage.setItem('token', token);
       onClose();
@@ -30,8 +31,8 @@ const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
   };
 
   useEffect(() =>{
-    console.log(id);
     sendDataToParent(isLoggedIn);
+    sendIDToParent(id);
     if(id){
       window.location.href = `/home/${id}`
     }

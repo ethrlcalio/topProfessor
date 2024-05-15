@@ -23,14 +23,6 @@ const Profile = ({id}) => {
       .catch(error => console.error('Error fetching professor data:', error));
   };
 
-  const handleProfessorCodeChange = (event) => {
-    setProfessorCode(event.target.value);
-  };
-
-  const handleFetchData = () => {
-    fetchData();
-  };
-
   return (
     <div className="flex flex-col">
       <div className="bg-penn-blue w-full flex justify-center">
@@ -41,22 +33,19 @@ const Profile = ({id}) => {
       </div>
       <div className="flex flex-col align-center m-2 items-center">
         <h2 className="font-montserrat text-xl text-jet font-semibold pt-2">
-          {studentData ? `${studentData.firstName} ${studentData.lastName}` : 'Insert Name Here'}
+          {studentData ? `${studentData.firstName} ${studentData.lastName}` : ''}
         </h2>
       </div>
       <div className="text-left m-2 -mt-1 p-2">
         <div>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            ID Number: <span className="font-normal">{studentData ? studentData.studentID : '*'}</span>
+            ID Number: <span className="font-normal">{studentData ? studentData.studentID : ''}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Program: <span className="font-normal">{studentData ? studentData.program : '*'}</span>
+            Program: <span className="font-normal">{studentData ? studentData.program : ''}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Division: <span className="font-normal">{studentData ? studentData.division : '*'}</span>
-          </h2>
-          <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Semester: <span className="font-normal">{studentData ? studentData.schoolYear : '*'}</span>
+            Division: <span className="font-normal">{studentData ? studentData.division : ''}</span>
           </h2>
         </div>
       </div>

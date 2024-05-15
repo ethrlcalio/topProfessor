@@ -58,7 +58,7 @@ const Table = ({id}) => {
       <div className="overflow-x-auto">
         <div className="min-w-full">
           <div className="overflow-hidden">
-            <table className="min-w-full text-left text-xs/3 font-light">
+            <table className="min-w-full text-left text-sm/3 font-light">
               <thead className="font-montserrat text-anti-flash bg-penn-blue">
                 <tr>
                   <th scope="col" className="w-1/12 px-4 py-3">
@@ -72,7 +72,7 @@ const Table = ({id}) => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y">
                 {
                   schedule && schedule.map((schedule_obj, index) => (
                     <TableRow key= {index}
@@ -95,11 +95,11 @@ const Table = ({id}) => {
 
 const TableRow = ({ id, classCode, subjectCode, course, instructor, timeSlot }) => {
   return (
-    <tr className="border-b bg-neutral-100 hover:bg-gray-200 cursor-pointer" onClick={() => window.location.href = `/professor/${id}`}>
-      <td className="font-montserrat whitespace-nowrap px-4 py-3 font-md">{classCode}</td>
-      <td className="font-montserrat whitespace-nowrap font-md px-4 py-3">
+    <tr className="bg-neutral-100 hover:bg-gray-200 cursor-pointer text-sm/4" onClick={() => window.location.href = `/professor/${id}`}>
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">{classCode}</td>
+      <td className="font-montserrat whitespace-nowrap px-4 py-3">
         <span>{course} <br /></span>
-        <span className="font-montserrat text-[8px]/3 italic">{instructor}</span>
+        <span className="font-montserrat text-xs/3 italic">{instructor}</span>
       </td>
       <td className="font-montserrat whitespace-nowrap px-4 py-3">{timeSlot}</td>
     </tr>
