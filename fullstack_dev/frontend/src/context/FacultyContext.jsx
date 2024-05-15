@@ -7,10 +7,13 @@ const FacultyProvider = ({children}) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     
+    //REMOVE THIS
+    const [classID, setClassID] = useState(1);
+    
     useEffect(() => {
       const fetchData = async () => {
         try{
-          const response = await fetch('http://127.0.0.1:5173/');
+          const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
           if(!response.ok){
             throw new Error('HTTP error: Status ${response.status}');
           }
@@ -24,6 +27,7 @@ const FacultyProvider = ({children}) => {
         }
       }
       fetchData();
+      console.log(professors);
     }, []);
 
     return <FacultyContext.Provider value={{professors, setProfessors }}>
