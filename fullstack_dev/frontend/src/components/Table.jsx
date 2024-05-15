@@ -1,11 +1,57 @@
-import React, {useContext} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
-import {ScheduleContext} from '../context/ScheduleContext'
 
 const Table = () => {
-  //Temporary values to be replaced with data from database
-  const {subjects, setSubjects} = useContext(ScheduleContext);
-  console.log(subjects);
+  const [subjects, setSubjects] = useState(null);
+  const [classObj, setClassObj] = useState(null);
+  const [schedule, setSchedule] = useState(null);
+
+  const fetchData = async () => {
+    const response = await fetch(`http://127.0.0.1:8000/api/schedule-data/?studentID=${135922}`);
+    let data = await response.json();
+    setSubjects(data);
+  }
+
+  const filterData = async () => {
+    if(subjects && subjects.length > 0){
+      const dataArray = [];
+      await Promise.all(subjects.map(async (subject) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/class-data/?classID=${subject.classID}`);
+        const data = await response.json();
+        dataArray.push(data);
+      }));
+      setClassObj(dataArray);
+    }
+  }
+  const insertData = async () => {
+    console.log(classObj);
+    await Promise.all(classObj.map( async (class_obj) => {
+      const response = await fetch(`http://127.0.0.1:8000/api/professor-data/?professorID=${class_obj.professorID}`);
+      const data = await response.json();
+      class_obj.professorName = data.firstName + " " + data.lastName;
+      
+    }));
+    await Promise.all(classObj.map( async (class_obj) => {
+      const response = await fetch(`http://127.0.0.1:8000/api/days-data/?classID=${class_obj.classID}`);
+      const data = await response.json();
+      const daysArray = data.map(obj => obj.day.slice(0,2));
+      class_obj.days = daysArray.toString();
+    }));
+    setSchedule(classObj);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    filterData();
+  }, [subjects]);
+
+  useEffect(() => {
+    insertData();
+  }, [classObj])
+
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto">
@@ -17,10 +63,7 @@ const Table = () => {
                   <th scope="col" className="w-1/12 px-4 py-3">
                     Class Code
                   </th>
-                  <th scope="col" className="w-1/12 px-4 py-3">
-                    Subject Code
-                  </th>
-                  <th scope="col" className="px-4 py-3">
+                  <th scope="col" className="w-1/2 px-4 py-3">
                     Course
                   </th>
                   <th scope="col" className="px-4 py-3">
@@ -30,26 +73,16 @@ const Table = () => {
               </thead>
               <tbody>
                 {
-                  subjects.map((subject, index) => (
+                  schedule && schedule.map((schedule_obj, index) => (
                     <TableRow key= {index}
-                    to={""}
-                    classCode={subject.classID}
-                    subjectCode={subject.classID}
-                    course={subject.scheduleID}
-                    instructor={subject.scheduleID}
-                    timeSlot={subject.scheduleID}
+                    to={schedule_obj.professorID}
+                    classCode={schedule_obj.classID}
+                    course={schedule_obj.className}
+                    instructor={schedule_obj.professorName}
+                    timeSlot={schedule_obj.startTime.slice(0,5) + "-" + schedule_obj.endTime.slice(0,5) + " " + schedule_obj.days}
                 />
                   ))
                 }
-                
-                {/*<TableRow
-                  to="/professor"
-                  classCode="4-319"
-                  subjectCode="CS 3246"
-                  course="ELECTIVE MATH/CS ELECTIVE 1"
-                  instructor="Dwight Ian De Jesus"
-                  timeSlot="5:50P-8:20P F613C MW"
-              />*/}
               </tbody>
             </table>
           </div>
@@ -63,7 +96,6 @@ const TableRow = ({ to, classCode, subjectCode, course, instructor, timeSlot }) 
   return (
     <tr className="border-b bg-neutral-100 hover:bg-gray-200 cursor-pointer" onClick={() => window.location.href = to}>
       <td className="font-montserrat whitespace-nowrap px-4 py-3 font-md">{classCode}</td>
-      <td className="font-montserrat whitespace-nowrap px-4 py-3">{subjectCode}</td>
       <td className="font-montserrat whitespace-nowrap font-md px-4 py-3">
         <span>{course} <br /></span>
         <span className="font-montserrat text-[8px]/3 italic">{instructor}</span>

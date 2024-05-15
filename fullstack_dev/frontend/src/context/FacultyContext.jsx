@@ -7,9 +7,6 @@ const FacultyProvider = ({children}) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     
-    //REMOVE THIS
-    const [classID, setClassID] = useState(1);
-    
     useEffect(() => {
       const fetchData = async () => {
         try{
