@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProfessorView, StudentView, ClassView, DaysView, ScheduleView, RatingView, save_rating_data, RegisterView, delete_rating, CustomLoginView
+from .views import ProfessorView, StudentView, ClassView, DaysView, ScheduleView, RatingView, save_rating_data, RegisterView, delete_rating, CustomLoginView, csrf_token_view
 from . import views
 
 urlpatterns = [
@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/rating/<int:rating_id>/', delete_rating, name='delete_rating'),
     path('api/register/', RegisterView.as_view(), name='register'),
     path('api/login/', CustomLoginView.as_view(), name='custom_login'),
+    path('csrf_token/', csrf_token_view, name='csrf_token'),
 ]

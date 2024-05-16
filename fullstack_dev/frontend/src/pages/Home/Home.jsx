@@ -1,19 +1,11 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import Table from '../../components/Table'
 import Profile from '../../components/Profile'
 import { useParams } from 'react-router-dom';
 
 const Home = () => {
   const {id} = useParams();
-  const StudentContext = createContext();
-  const StudentProvider = ({children}) => {
-    const [value, setValue] = useState(id);
-    return(
-      <StudentContext.Provider value={{value,setValue}}>
-        {children}
-      </StudentContext.Provider>
-    )
-  }
+  
   return (
     <div className="bg-anti-flash min-h-full">
         <div id="content" className="w-full flex justify-center items-center pt-12">

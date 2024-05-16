@@ -9,7 +9,7 @@ import {MetricContext} from '../../context/MetricContext'
 import LineChart from "../../components/LineChart";
 
 const ProfessorProfile = () => {
-  const {id} = useParams();
+  const {id, classCode} = useParams();
   const [classObj, setClassObj] = useState(null);
   const [ratingData, setRatingData] = useState(null);
   const [ratings, setRatings] = useState({
@@ -24,6 +24,7 @@ const ProfessorProfile = () => {
   const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
+    console.log(isHidden);
     const fetchData = async () => {
       const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
       let data = await response.json();
@@ -71,20 +72,27 @@ const ProfessorProfile = () => {
         }));
       }
       calculateRatings();
+      setIsCalculateDone();
     }
   }, [isRatingsDone])
 
+  useEffect(() => {
+    if(ratingData){
+      const flatArray = ratingData.flat();
+      const filteredArray = flatArray.filter((rating) => rating.classID == classCode && rating.studentID == JSON.parse(localStorage.getItem('id')));
+      if(filteredArray && filteredArray.length > 0){
+        setIsHidden(true);
+      }
+    }
+  }, [isCalculateDone]);
+
   const {metrics, setMetrics} = useContext(MetricContext);
-  
-  const handleDataFromChild = (data) => {
-    setIsHidden(data);
-  }
   
   return (
     <div className="bg-anti-flash min-h-full">
       <div id="content" className="w-full flex justify-center items-center pt-12">
         <div className="w-2/3 flex flex-col-2 gap-8">
-          <div className="w-2/3 h-full flex flex-col">
+          <div className="w-2/3 h-full flex flex-col gap-4">
             {/* First Row */}
             <div className="w-full flex flex-row gap-4">
               <div className="h-full bg-white rounded-xl shadow-md py-6">
@@ -99,7 +107,7 @@ const ProfessorProfile = () => {
             {/* Second Row */}
             <div className="flex flex-col gap-4">
               <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-                {isHidden && <AddButton sendDataToParent={handleDataFromChild} professorID={id}/>}
+                {!isHidden && <AddButton classID={classCode}/>}
               </div>
               <div className="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
                 <LineChart />

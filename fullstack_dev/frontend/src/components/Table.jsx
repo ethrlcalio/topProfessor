@@ -95,7 +95,7 @@ const Table = ({id}) => {
 
 const TableRow = ({ id, classCode, subjectCode, course, instructor, timeSlot }) => {
   return (
-    <tr className="bg-neutral-100 hover:bg-gray-200 cursor-pointer text-sm/4" onClick={() => window.location.href = `/professor/${id}`}>
+    <tr className="bg-neutral-100 hover:bg-gray-200 cursor-pointer text-sm/4" onClick={() => window.location.href = `/professor/${id}/${classCode}`}>
       <td className="font-montserrat whitespace-nowrap px-4 py-3">{classCode}</td>
       <td className="font-montserrat whitespace-nowrap px-4 py-3">
         <span>{course} <br /></span>
