@@ -9,6 +9,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
+import json
 
 class CustomLoginView(APIView):
     def post(self, request):
@@ -200,15 +204,16 @@ def get_rating_data(request):
             return JsonResponse({'error': 'Rating not found'}, status=404)
     else:
         return JsonResponse({'error': 'Class ID is required'}, status=400)
-    
+
 def save_rating_data(request):
     if request.method == 'POST':
-        class_id = request.POST.get('classID')
-        student_id = request.POST.get('studentID')
-        rating_value2 = request.POST.get('rating2')
-        rating_value3 = request.POST.get('rating3')
-        rating_value4 = request.POST.get('rating4')
-        comments_value = request.POST.get('comments')
+        data = json.loads(request.body)
+        class_id = data.get('classID')
+        student_id = data.get('studentID')
+        rating_value2 = data.get('teachingProficiency')
+        rating_value3 = data.get('availabilityResponsiveness')
+        rating_value4 = data.get('attendance')
+        comments_value = data.get('additionalComments')
 
         if class_id and student_id and rating_value2 and rating_value3 and rating_value4 :
             try:
@@ -314,3 +319,7 @@ def get_students(request):
             'created_at': student.created_at,
         })
     return JsonResponse(data, safe=False)
+
+def csrf_token_view(request):
+    token = get_token(request)
+    return JsonResponse({'csrfToken': token})

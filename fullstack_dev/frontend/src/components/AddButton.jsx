@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import RatingModal from './RatingModal'; // Import the RatingModal component
 
-const AddButton = ({sendDataToParent, professorID}) => {
-  const profID = professorID;
+const AddButton = ({classID}) => {
+  const code = classID;
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const openModal = () => {
     setIsModalOpen(true);
@@ -12,9 +12,6 @@ const AddButton = ({sendDataToParent, professorID}) => {
     setIsModalOpen(false);
   };
 
-  const handleDataFromChild = (data) => {
-    sendDataToParent(data);
-  }
   return (
     <>
       {!isModalOpen && (
@@ -23,7 +20,7 @@ const AddButton = ({sendDataToParent, professorID}) => {
       </button>
       )}
       
-      <RatingModal isOpen={isModalOpen} onClose={closeModal} sendDataToParent={handleDataFromChild} pID={profID}></RatingModal> {/* Render the RatingModal component */}
+      <RatingModal isOpen={isModalOpen} onClose={closeModal} cID={code}></RatingModal> {/* Render the RatingModal component */}
     </>
   );
 };
