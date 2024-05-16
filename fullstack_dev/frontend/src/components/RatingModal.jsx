@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const RatingModal = ({ isOpen, onClose }) => {
+const RatingModal = ({ isOpen, onClose, sendDataToParent }) => {
   const [formData, setFormData] = useState({
     teachingProficiency: '',
     availabilityResponsiveness: '',
@@ -21,6 +21,7 @@ const RatingModal = ({ isOpen, onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form submitted with:', formData);
+    sendDataToParent(true);
     onClose();
   };
 
@@ -43,6 +44,10 @@ const RatingModal = ({ isOpen, onClose }) => {
     }
     return stars;
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   const reset = () => {
     setFormData({
@@ -84,7 +89,7 @@ const RatingModal = ({ isOpen, onClose }) => {
               </div>
               <div className="flex flex-col gap-1">
                 <label htmlFor="additionalComments" className="block text-sm">Additional Comments:</label>
-                <textarea id="additionalComments" name="additionalComments" rows="4" cols="50" value={formData.additionalComments} onChange={(e) => handleChange(e, 'additionalComments')} className="border rounded px-4 py-2 w-full"></textarea>
+                <textarea id="additionalComments" name="additionalComments" rows="4" cols="50" value={formData.additionalComments} onChange={(e) => handleChange(e, 'additionalComments')} className="border rounded px-4 py-2 w-full text-sm"></textarea>
               </div>
               <div className="text-center">
                 <button type="submit" className="bg-penn-blue text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Submit</button>

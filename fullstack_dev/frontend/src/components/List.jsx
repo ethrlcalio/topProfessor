@@ -1,34 +1,50 @@
 import React, {useState, useContext, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import {FacultyContext} from '../context/FacultyContext'
 
 const List = () => {
-  const {professors, setProfessors} = useContext(FacultyContext);
+  const [professors, setProfessors] = useState(null);
   const [classObj, setClassObj] = useState(null);
   const [ratingData, setRatingData] = useState(null);
   const [ratings, setRatings] = useState(null);
-  
-  const fetchData = async () => {
-    const dataArray = [];
-    try{
-      await Promise.all(professors.map(async (professor) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
-        let data = await response.json();
-        const filteredData  = data.filter(class_obj => class_obj.professorID == professor.professorID);
-        console.log(filteredData);
-        dataArray.push(filteredData);
-      }));
-      setClassObj(dataArray);
-    }catch(error){
-      console.error("Error fetching data:", error);
-    }
-  }
+  const [isClassDone, setIsClassDone] = useState(false);
+  const [isDataDone, setIsDataDone] = useState(false);
+  const [isCalculateDone, setIsCalculateDone] = useState(false);
+  const [isRatingDone, setIsRatingDone] = useState(false);
 
-  const fetchRatings = async () => {
-    
-    try{
-      if(classObj && classObj.length > 0){
+  useEffect(() =>{
+    if(!isCalculateDone){
+      const fetchProfessors = async() => {
+        const response = await fetch(`http://127.0.0.1:8000/api/professors/`);
+        const data = await response.json();
+        setProfessors(data);
+      }
+      fetchProfessors();
+    }
+  }, []);
+
+   useEffect(() => {
+    if(professors && professors.length > 0){
+      console.log(professors);
+      const fetchData = async () => {
+        const dataArray = [];
+        await Promise.all(professors.map(async (professor) => {
+          const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
+          let data = await response.json();
+          const filteredData  = data.filter(class_obj => class_obj.professorID == professor.professorID);
+          dataArray.push(filteredData);
+        }));
+        setClassObj(dataArray); 
+        setIsClassDone(true);
+      }
+      fetchData();
+    }
+  }, [professors]);
+
+  useEffect(() => {
+    if(classObj){
+      console.log(classObj);
+      const fetchRatings = async () => {
         const dataArray = await Promise.all(classObj.map(async (classArray) => {
           const professorRatings = await Promise.all(classArray.map(async (class_obj) => {
             const response = await fetch(`http://127.0.0.1:8000/api/rating-data/?classID=${class_obj.classID}`);
@@ -37,73 +53,55 @@ const List = () => {
           return professorRatings;
         }));
         setRatingData(dataArray);
+        setIsDataDone(true);
       }
-    }catch (error){
-      console.error("Error fetching ratings:", error);
-    }
-  }
-
-  const calculateRatings = async () => {
-    console.log(ratingData);
-    try{
-      if(ratingData && ratingData.length > 0){
-        const dataArray = await Promise.all(ratingData.map(async (classArray) => {
-          let totalRating = 0;
-          let numRatings = 0;
-  
-          await Promise.all(classArray.flat().map(async (rating) => {
-            totalRating += parseFloat(rating.rating1);
-            numRatings++;
-          }))
-          const aveRating = numRatings > 0 ? totalRating / numRatings : 0;
-          return aveRating !== 0 ? parseFloat(aveRating.toFixed(2)) : "-";
-        }));
-        setRatings(dataArray);
-      }
-    }catch (error){
-      console.error("Error calculating ratings:", error);
-    }
-  }
-
-  const injectData = async () => {
-    console.log(ratings);
-    try{
-      if(ratings && ratings.length > 0){
-        const professorRatings = professors.map((professor,index) => {
-          return{
-            ...professor,
-            overallRating: ratings[index]
-          };
-        });
-        await setProfessors(professorRatings);
-      }
-    }catch (error){
-      console.error("Error injecting data:", error);
-    };
-  }
-
-   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if(classObj && classObj.length > 0){
-      console.log(classObj);
       fetchRatings();
     }
-  }, [classObj]);
+  }, [isClassDone]);
 
   useEffect(() => {
     if(ratingData && ratingData.length > 0){
+      console.log(ratingData);
+      const calculateRatings = async () => {
+        if(ratingData && ratingData.length > 0){
+          const dataArray = await Promise.all(ratingData.map(async (classArray) => {
+            let totalRating = 0;
+            let numRatings = 0;
+            const flatArray = classArray.flat()
+            await flatArray.map(async (rating) => {
+              totalRating += parseFloat(rating.rating1);
+              numRatings++;
+            })
+            const aveRating = numRatings > 0 ? totalRating / numRatings : 0;
+            return aveRating !== 0 ? parseFloat(aveRating.toFixed(2)) : "-";
+          }));
+          setRatings(dataArray);
+          setIsCalculateDone(true);
+        }
+      }
       calculateRatings();
     }
-  }, [ratingData]);
+  }, [isDataDone]);
   
   useEffect(() => {
     if(ratings && ratings.length > 0){
+      const injectData = async () => {
+        console.log(ratings);
+        if(ratings && ratings.length > 0){
+          const professorRatings = professors.map((professor,index) => {
+            return{
+              ...professor,
+              overallRating: ratings[index]
+            };
+          });
+          setProfessors(professorRatings);
+          setIsRatingDone(true);
+        }
+      }
       injectData();
+      console.log(isRatingDone);
     }
-  }, [ratings])
+  }, [isCalculateDone])
 
   return (
     <div className="flex flex-col">
@@ -126,7 +124,7 @@ const List = () => {
               </thead>
               <tbody>
                 {
-                  professors && professors.map((professorEntry, index) => (
+                  isRatingDone && professors.map((professorEntry, index) => (
                     <TableRow
                       key={index}
                       facultyName={professorEntry.firstName + " " + professorEntry.lastName}

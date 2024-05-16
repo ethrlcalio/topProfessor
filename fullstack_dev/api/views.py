@@ -173,14 +173,22 @@ def save_rating_data(request):
     if request.method == 'POST':
         class_id = request.POST.get('classID')
         student_id = request.POST.get('studentID')
-        rating_value = request.POST.get('rating')
+        rating_value2 = request.POST.get('rating2')
+        rating_value3 = request.POST.get('rating3')
+        rating_value4 = request.POST.get('rating4')
+        comments_value = request.POST.get('comments')
 
-        if class_id and student_id and rating_value:
+        if class_id and student_id and rating_value2 and rating_value3 and rating_value4 :
             try:
+                overall = ((float(rating_value2) + float(rating_value3) + float(rating_value4)) / 3)
                 rating = Rating.objects.create(
                     classID_id=class_id,
                     studentID_id=student_id,
-                    rating=rating_value
+                    rating1=overall,
+                    rating2=rating_value2,
+                    rating3=rating_value3,
+                    rating4=rating_value4,
+                    comments=comments_value,
                 )
                 # Optionally, you can serialize the created rating object
                 serializer = RatingSerializer(rating)
