@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Professor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     professorID = models.BigAutoField(primary_key=True)
     professorCode = models.IntegerField()
     lastName = models.CharField(max_length=32)

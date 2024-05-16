@@ -18,23 +18,55 @@ class CustomLoginView(APIView):
         user = authenticate(username=username, password=password)
         if user:
             try:
-                student = Student.objects.get(user_id=user)
-                studentID = student.studentID
+                student = Student.objects.get(user=user)
+                role = 'student'
+                identifier = student.studentID
             except Student.DoesNotExist:
-                return Response({'error' : 'Student does not exist'}, status=status.HTTP_404_NOT_FOUND)
-            
+                try:
+                    professor = Professor.objects.get(user=user)
+                    role = 'professor'
+                    identifier = professor.professorID
+                    position = professor.position
+                except Professor.DoesNotExist:
+                    return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
             refresh = RefreshToken.for_user(user)
-            return Response({
-                'studentID': studentID,
+            response_data = {
+                'role': role,
+                'identifier': identifier,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
-            })
+            }
+            if role == 'professor':
+                response_data['position'] = position
+
+            return Response(response_data)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
+
+class ProfessorRegisterView(generics.CreateAPIView):
+    serializer_class = ProfessorSerializer
+
+    def post(self, request, *args, **kwargs):
+        professor_data = request.data.copy()  # Make a mutable copy of the request data
+        user_data = {
+            'username': professor_data.pop('username'),
+            'password': professor_data.pop('password'),
+            'email': professor_data.get('email'),
+            'first_name': professor_data.get('firstName'),
+            'last_name': professor_data.get('lastName')
+        }
+        professor_data['user'] = user_data
+
+        serializer = self.get_serializer(data=professor_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfessorView(generics.CreateAPIView):
     queryset = Professor.objects.all()

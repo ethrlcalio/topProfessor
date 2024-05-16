@@ -17,12 +17,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
         return user
 
-class ProfessorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Professor
-        fields = ('professorID', 'professorCode', 'lastName', 'firstName','program', 'division', 'schoolYear', 'email', 'username', 'password', 'position', 'created_at')
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -32,7 +26,20 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+    
+class ProfessorSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=True)
 
+    class Meta:
+        model = Professor
+        fields = ['professorID', 'lastName', 'firstName', 'professorCode', 'program', 'division', 'schoolYear', 'position','user']
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        professor = Professor.objects.create(user=user, **validated_data)
+        return professor
+    
 class StudentSerializer(serializers.ModelSerializer):
     user = UserSerializer()  # Nested serializer for creating user
 
