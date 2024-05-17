@@ -1,4 +1,6 @@
-# RateMyProf
+# TopProfessor
+
+![Logo](frontend/Logo.png)
 
 ## Description
 - Through RateMyProf, students would be able to rate their teachers based off their experiences in class. Their class schedules could also be viewed to provide better clarity for the students
@@ -8,7 +10,42 @@
 
 - The full-stack web application greatly benefits its benefactors by providing convenient access to professor ratings and class schedules, enabling informed decision-making in course selection and academic planning. Through transparent feedback from students, the platform fosters accountability among professors, encouraging them to maintain high teaching standards. Administrators and department chairs can leverage the platform's statistical data to gain valuable insights into teaching effectiveness and student satisfaction, facilitating data-driven decision-making. Additionally, the platform promotes community engagement by facilitating communication between stakeholders and empowering students to have a voice in their educational experience. Overall, the application streamlines administrative tasks, promotes transparency, and empowers stakeholders, ultimately enhancing the quality of the academic experience.
 
-## Devnotes:
+## Diagram
+
+![diagram](frontend/diagram.png)
+
+## Libraries Used:
+- **React**
+- **Django Rest Framework**
+- **React Router**
+- **TailwindCSS**
+- **Jest**
+
+## Pictures of the appliation
+
+![img1](frontend/1.png)
+![img2](frontend/2.png)
+![img3](frontend/3.png)
+![img4](frontend/4.png)
+![img5](frontend/5.png)
+![img6](frontend/6.png)
+![img7](frontend/7.png)
+![img8](frontend/8.png)
+![img9](frontend/9.png)
+![img10](frontend/10.png)
+![img11](frontend/11.png)
+![img12](frontend/12.png)
+![img13](frontend/13.png)
+
+## Contributors:
+
+![contributors](frontend/contributors.jpg)
+
+Almonte, Dominic Miguel D.
+Banggud, Josh Elizalde A.
+Calio, Ethan Rey L.
+
+# Devnotes:
 
 - **Database**: PostgreSQL
 - **Web Framework**: Django REST
