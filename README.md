@@ -41,9 +41,9 @@
 
 ![contributors](fullstack_dev/frontend/src/contirbutors.jpg)
 
-Almonte, Dominic Miguel D.
-Banggud, Josh Elizalde A.
-Calio, Ethan Rey L.
+- **Almonte, Dominic Miguel D.**
+- **Banggud, Josh Elizalde A.**
+- **Calio, Ethan Rey L.**
 
 # Devnotes:
 
