@@ -1,6 +1,6 @@
 # TopProfessor
 
-![Logo](fullstackdev/frontend/Logo.png)
+![Logo](fullstack_dev/frontend/Logo.png)
 
 ## Description
 - Through RateMyProf, students would be able to rate their teachers based off their experiences in class. Their class schedules could also be viewed to provide better clarity for the students
@@ -12,7 +12,7 @@
 
 ## Diagram
 
-![diagram](fullstackdev/frontend/diagram.png)
+![diagram](fullstack_dev/frontend/diagram.png)
 
 ## Libraries Used:
 - **React**
@@ -23,23 +23,23 @@
 
 ## Pictures of the appliation
 
-![img1](fullstackdev/frontend/1.png)
-![img2](fullstackdev/frontend/2.png)
-![img3](fullstackdev/frontend/3.png)
-![img4](fullstackdev/frontend/4.png)
-![img5](fullstackdev/frontend/5.png)
-![img6](fullstackdev/frontend/6.png)
-![img7](fullstackdev/frontend/7.png)
-![img8](fullstackdev/frontend/8.png)
-![img9](fullstackdev/frontend/9.png)
-![img10](fullstackdev/frontend/10.png)
-![img11](fullstackdev/frontend/11.png)
-![img12](fullstackdev/frontend/12.png)
-![img13](fullstackdev/frontend/13.png)
+![img1](fullstack_dev/frontend/1.png)
+![img2](fullstack_dev/frontend/2.png)
+![img3](fullstack_dev/frontend/3.png)
+![img4](fullstack_dev/frontend/4.png)
+![img5](fullstack_dev/frontend/5.png)
+![img6](fullstack_dev/frontend/6.png)
+![img7](fullstack_dev/frontend/7.png)
+![img8](fullstack_dev/frontend/8.png)
+![img9](fullstack_dev/frontend/9.png)
+![img10](fullstack_dev/frontend/10.png)
+![img11](fullstack_dev/frontend/11.png)
+![img12](fullstack_dev/frontend/12.png)
+![img13](fullstack_dev/frontend/13.png)
 
 ## Contributors:
 
-![contributors](fullstackdev/frontend/contributors.jpg)
+![contributors](fullstack_dev/frontend/contributors.jpg)
 
 Almonte, Dominic Miguel D.
 Banggud, Josh Elizalde A.
