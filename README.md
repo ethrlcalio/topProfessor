@@ -39,7 +39,7 @@
 
 ## Contributors:
 
-![contributors](fullstack_dev/frontend/src/contributors.jpg)
+![contributors](fullstack_dev/frontend/src/contirbutors.jpg)
 
 Almonte, Dominic Miguel D.
 Banggud, Josh Elizalde A.
