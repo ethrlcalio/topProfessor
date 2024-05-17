@@ -45,7 +45,8 @@ const RatingModal = ({ isOpen, onClose, cID, pID }) => {
           additionalComments: formData.additionalComments
         })
       });
-      window.location.href = `/professor/${pID}/${formData.classID}`
+      console.log(pID, parseFloat(formData.classID))
+      window.location.href = `/professor/${pID}/${parseFloat(formData.classID)}`
     }catch (error){
       console.error('Error:', error);
     }
@@ -94,8 +95,6 @@ const RatingModal = ({ isOpen, onClose, cID, pID }) => {
       additionalComments: ''
     })
   }
-
-  
 
   return (
     <>

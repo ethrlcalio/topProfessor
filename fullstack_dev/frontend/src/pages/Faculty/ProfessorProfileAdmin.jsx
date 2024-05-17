@@ -6,7 +6,6 @@ import MinorRating from "../../components/MinorRating";
 import AddButton from "../../components/AddButton";
 import EmptyBox from "../../components/EmptyBox";
 import {MetricContext} from '../../context/MetricContext'
-import LineChart from "../../components/LineChart";
 
 const ProfessorProfileAdmin = () => {
   const {id} = useParams();
@@ -28,7 +27,6 @@ const ProfessorProfileAdmin = () => {
   const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
-    console.log(isHidden);
     const fetchData = async () => {
       const response = await fetch(`http://127.0.0.1:8000/api/classes/`);
       let data = await response.json();

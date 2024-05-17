@@ -16,7 +16,6 @@ function Navbar() {
   useEffect(() => {
     const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
     setIsLoggedIn(loggedIn || false);
-    console.log(isLoggedIn);
   }, []);
 
   const openLogin = () => {
@@ -48,7 +47,6 @@ function Navbar() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form submitted with:", formData);
   };
 
   const handleDatafromChild = (data) => {

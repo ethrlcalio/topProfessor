@@ -1,9 +1,15 @@
 // Default.jsx
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import DefaultDisplay from '../../components/DefaultDisplay'
 
 const Default = () => {
+  useEffect(() => {
+    if(JSON.parse(localStorage.getItem("role")) == "professor"){
+      alert('Professors do not have access! Only students and admins');
+      localStorage.removeItem("role");
+    }
+  }, []);
   return (
     <div className="bg-anti-flash min-h-full flex justify-center items-center">
       <div className="w-full max-w-6xl">

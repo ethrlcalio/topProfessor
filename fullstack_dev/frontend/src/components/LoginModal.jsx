@@ -35,10 +35,12 @@ const LoginModal = ({ isOpen, onClose, sendDataToParent }) => {
     if(id){
       if(JSON.parse(localStorage.getItem("role")) == "student"){
         sendDataToParent(isLoggedIn);
-        window.location.href = `/home/${id}`
+        window.location.href = `/home/${id}`;
       }else if(JSON.parse(localStorage.getItem("role")) == "admin") {
         sendDataToParent(isLoggedIn);
-        window.location.href = `/dashboard/admin/${id}`
+        window.location.href = `/dashboard/admin/${id}`;
+      }else if(JSON.parse(localStorage.getItem("role")) == "professor") {
+        window.location.href = `/`;
       }
     }
   }, [isLoggedIn]);

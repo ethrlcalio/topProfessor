@@ -25,7 +25,6 @@ const Table = ({id}) => {
     }
   }
   const insertData = async () => {
-    console.log(classObj);
     await Promise.all(classObj.map( async (class_obj) => {
       const response = await fetch(`http://127.0.0.1:8000/api/professor-data/?professorID=${class_obj.professorID}`);
       const data = await response.json();

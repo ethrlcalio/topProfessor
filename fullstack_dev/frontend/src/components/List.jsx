@@ -25,7 +25,6 @@ const List = () => {
 
    useEffect(() => {
     if(professors && professors.length > 0){
-      console.log(professors);
       const fetchData = async () => {
         const dataArray = [];
         await Promise.all(professors.map(async (professor) => {
@@ -43,7 +42,6 @@ const List = () => {
 
   useEffect(() => {
     if(classObj){
-      console.log(classObj);
       const fetchRatings = async () => {
         const dataArray = await Promise.all(classObj.map(async (classArray) => {
           const professorRatings = await Promise.all(classArray.map(async (class_obj) => {
@@ -61,7 +59,6 @@ const List = () => {
 
   useEffect(() => {
     if(ratingData && ratingData.length > 0){
-      console.log(ratingData);
       const calculateRatings = async () => {
         if(ratingData && ratingData.length > 0){
           const dataArray = await Promise.all(ratingData.map(async (classArray) => {
@@ -86,7 +83,6 @@ const List = () => {
   useEffect(() => {
     if(ratings && ratings.length > 0){
       const injectData = async () => {
-        console.log(ratings);
         if(ratings && ratings.length > 0){
           const professorRatings = professors.map((professor,index) => {
             return{
@@ -99,7 +95,6 @@ const List = () => {
         }
       }
       injectData();
-      console.log(isRatingDone);
     }
   }, [isCalculateDone])
 

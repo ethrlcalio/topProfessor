@@ -13,14 +13,6 @@ import Faculty from './pages/Faculty/Faculty';
 import MetricContextProvider from './context/MetricContext';
 
 function App() {
-  const [role, setRole] = useState(JSON.parse(localStorage.getItem("role")) ? JSON.parse(localStorage.getItem("role")) : null);
-  const [roleAccess, setRoleAccess] = useState(null);
-  
-  useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem("role")));
-    setRoleAccess(JSON.parse(localStorage.getItem("role")));
-  },[role])
-  
   return (
     <MetricContextProvider>
         <div className='flex flex-col h-screen'>

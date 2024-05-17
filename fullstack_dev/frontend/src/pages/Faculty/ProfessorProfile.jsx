@@ -6,7 +6,6 @@ import MinorRating from "../../components/MinorRating";
 import AddButton from "../../components/AddButton";
 import EmptyBox from "../../components/EmptyBox";
 import {MetricContext} from '../../context/MetricContext'
-import LineChart from "../../components/LineChart";
 
 const ProfessorProfile = () => {
   const {id, classCode} = useParams();
@@ -118,9 +117,6 @@ const ProfessorProfile = () => {
               <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
                 {!isHidden && <AddButton classID={classCode} profID={id}/>}
               </div>
-              {/*<div className="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
-                <LineChart />
-              </div>*/}
               {isHidden && commentArray && commentArray.map((rating, index) => (
                 <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
                   <EmptyBox 

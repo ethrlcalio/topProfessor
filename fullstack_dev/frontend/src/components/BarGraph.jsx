@@ -36,26 +36,18 @@ const BarGraph = ({type}) => {
     }, [type]);
 
     useEffect(() => {
-        console.log(ratings);
-        console.log(classes);
-        console.log(professors);
         if(ratings && classes && professors){
              const divisionAverages = divisions.map(division => {
                 const filteredProfs = professors.filter(prof =>
                     prof.division === division || prof.program === division
                 );
-                console.log(division);
-                console.log(filteredProfs);
                 const profIds = filteredProfs.map(prof => prof.professorID);
                 const filteredClasses = classes.filter(cls => profIds.includes(cls.professorID));
-                console.log(profIds);
-                console.log(filteredClasses);
+                
                 const classIds = filteredClasses.map(cls => cls.classID);
                 const divisionRatings = ratings.filter(rating => classIds.includes(rating.classID));
-                console.log(divisionRatings);
-
+                
                 if (divisionRatings && divisionRatings.length > 0) {
-                    console.log(ratingType);
                     let ratingNum = "";
                     switch (String(ratingType)){
                         case "Overall Rating":
