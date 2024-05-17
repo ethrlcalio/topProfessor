@@ -128,7 +128,7 @@ const List = () => {
                     <TableRow
                       key={index}
                       facultyName={professorEntry.firstName + " " + professorEntry.lastName}
-                      department={professorEntry.division}
+                      department={professorEntry.program}
                       overallRating={professorEntry.overallRating}
                     />
                   ))

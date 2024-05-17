@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
+const LoginModal = ({ isOpen, onClose, sendDataToParent }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,12 +16,13 @@ const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
         username,
         password,
       });
-      const {studentID, access} = response.data;
-      console.log(studentID);
+      const studentID = response.data.identifier;
       setID(studentID);
       
       const token = response.data.access;
       localStorage.setItem('token', token);
+      localStorage.setItem('id', JSON.stringify(studentID));
+      localStorage.setItem('role', JSON.stringify(response.data.role));
       onClose();
       console.log('Login successful!'); 
       setIsLoggedIn(true);
@@ -31,10 +32,11 @@ const LoginModal = ({ isOpen, onClose, sendDataToParent, sendIDToParent }) => {
   };
 
   useEffect(() =>{
-    sendDataToParent(isLoggedIn);
-    sendIDToParent(id);
     if(id){
-      window.location.href = `/home/${id}`
+      if(JSON.parse(localStorage.getItem("role")) != "professor"){
+        sendDataToParent(isLoggedIn);
+        window.location.href = `/home/${id}`
+      }
     }
   }, [isLoggedIn]);
 

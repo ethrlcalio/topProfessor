@@ -18,6 +18,10 @@ const ProfessorProfile = () => {
     availabilityResponsiveness: null,
     attendance: null,
   });
+  const [ratingCount, setRatingCount] = useState(null);
+  const [commentCount, setCommentCount] = useState(null);
+  const [flatRatings, setFlatRatings] = useState(null);
+  const [commentArray, setCommentArray] = useState(null);
   const [isDataDone, setIsDataDone] = useState(false);
   const [isRatingsDone, setIsRatingsDone] = useState(false);
   const [isCalculateDone, setIsCalculateDone] = useState(false);
@@ -79,10 +83,15 @@ const ProfessorProfile = () => {
   useEffect(() => {
     if(ratingData){
       const flatArray = ratingData.flat();
+      setFlatRatings(flatArray);
+      setRatingCount(flatArray.length);
       const filteredArray = flatArray.filter((rating) => rating.classID == classCode && rating.studentID == JSON.parse(localStorage.getItem('id')));
       if(filteredArray && filteredArray.length > 0){
         setIsHidden(true);
       }
+      const commentArray = flatArray.filter((rating) => rating.comments);
+      setCommentArray(commentArray);
+      setCommentCount(commentArray.length);
     }
   }, [isCalculateDone]);
 
@@ -109,16 +118,22 @@ const ProfessorProfile = () => {
               <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
                 {!isHidden && <AddButton classID={classCode}/>}
               </div>
-              <div className="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
+              {/*<div className="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
                 <LineChart />
-              </div>
-              <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-                <EmptyBox />
-              </div>
+              </div>*/}
+              {isHidden && commentArray && commentArray.map((rating, index) => (
+                <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
+                  <EmptyBox 
+                    key = {index}
+                    comment={rating.comments}
+                    commenter={rating.studentID}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="w-1/3 h-min bg-white rounded-xl overflow-x-hidden shadow-md">
-            <FacultyProfile id={id}/>
+            <FacultyProfile id={id} ratingCount={ratingCount} commentCount={commentCount}/>
           </div>
         </div>
       </div>

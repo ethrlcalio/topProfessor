@@ -45,6 +45,7 @@ const RatingModal = ({ isOpen, onClose, cID }) => {
           additionalComments: formData.additionalComments
         })
       });
+      window.location.href = `/home/${JSON.parse(localStorage.getItem('id'))}`
     }catch (error){
       console.error('Error:', error);
     }

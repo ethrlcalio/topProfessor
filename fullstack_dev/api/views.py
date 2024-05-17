@@ -28,7 +28,10 @@ class CustomLoginView(APIView):
             except Student.DoesNotExist:
                 try:
                     professor = Professor.objects.get(user=user)
-                    role = 'professor'
+                    if professor.position == 'Admin':
+                        role = 'admin'
+                    else:
+                        role = 'professor'
                     identifier = professor.professorID
                     position = professor.position
                 except Professor.DoesNotExist:

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Logo.png';
 import LoginModal from '../components/LoginModal';
 
 function Navbar() {
-  const [id, setID] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
@@ -34,6 +34,7 @@ function Navbar() {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('id');
+    localStorage.removeItem('role');
   }
 
   const handleChange = (event) => {
@@ -62,18 +63,7 @@ function Navbar() {
       window.location.href = `/`;
     }
   }, [isLoggedIn])
-
-  const handleID = (data) => {
-    if(data){
-      localStorage.setItem('id', JSON.stringify(data));
-    }
-  }
-
-  useEffect(() => {
-    const hasID = JSON.parse(localStorage.getItem('id'));
-    setID(hasID);
-  }, [id]);
-
+  
   return (
     <nav className="bg-penn-blue shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,15 +75,15 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              {isLoggedIn && <Link to={`/home/${id}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
-              {isLoggedIn && <Link to={`/faculty/${id}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
+              {isLoggedIn && <Link to={`/home/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
+              {isLoggedIn && <Link to={`/faculty/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
               {!isLoggedIn && <button onClick={openLogin} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log In</button>}
               {isLoggedIn && <button onClick={logOut} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log Out</button>}
             </div>
           </div>
         </div>
       </div>
-      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} sendDataToParent={handleDatafromChild} sendIDToParent={handleID}/>
+      <LoginModal isOpen={isLoginOpen} onClose={closeLogin} formData={formData} onChange={handleChange} onSubmit={handleSubmit} sendDataToParent={handleDatafromChild}/>
     </nav>
   );
 }

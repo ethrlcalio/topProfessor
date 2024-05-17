@@ -1,9 +1,10 @@
 // src/App.jsx
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
+import Dashboard from './pages/Home/Dashboard';
 import ProfessorProfile from './pages/Faculty/ProfessorProfile';
 import Default from './pages/Home/Default';
 import Login from './pages/Login/Login';
@@ -11,6 +12,14 @@ import Faculty from './pages/Faculty/Faculty';
 import MetricContextProvider from './context/MetricContext';
 
 function App() {
+  const [role, setRole] = useState(JSON.parse(localStorage.getItem("role")) ? JSON.parse(localStorage.getItem("role")) : null);
+  const [roleAccess, setRoleAccess] = useState(null);
+  
+  useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("role")));
+    setRoleAccess(JSON.parse(localStorage.getItem("role")));
+  },[role])
+  
   return (
     <MetricContextProvider>
         <div className='flex flex-col h-screen'>
@@ -18,6 +27,7 @@ function App() {
           <div className="flex-grow"> {/* Adjust the class name to `flex-grow` for flexibility */}
             <Routes>
               <Route path="/home/:id" element={<Home />} />
+              <Route path="/dashboard/:id" element={<Dashboard />} />
               <Route path="/professor/:id/:classCode" element={<ProfessorProfile/>} />
               <Route path="/faculty/:id" element={<Faculty />} />
               <Route path="/" element={<Default />} />
