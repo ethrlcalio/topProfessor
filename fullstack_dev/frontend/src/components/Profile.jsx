@@ -42,10 +42,10 @@ const Profile = ({id}) => {
             ID Number: <span className="font-normal">{studentData ? studentData.studentID : ''}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Program: <span className="font-normal">{studentData ? studentData.program : ''}</span>
+            Division: <span className="font-normal">{studentData ? studentData.division : ''}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Division: <span className="font-normal">{studentData ? studentData.division : ''}</span>
+            Program: <span className="font-normal">{studentData ? studentData.program : ''}</span>
           </h2>
         </div>
       </div>

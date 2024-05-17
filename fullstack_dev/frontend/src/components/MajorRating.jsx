@@ -1,7 +1,7 @@
 import React from 'react'
 
 const MajorRating = ({rating}) => {
-  const value = isNaN(rating) ? "-" : rating;
+  const value =  !rating || isNaN(rating) ? "-" : rating;
   return (
     <div className="relative flex flex-col gap-2 justify-center items-center">
         <div className="mx-8">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const RatingModal = ({ isOpen, onClose, cID }) => {
+const RatingModal = ({ isOpen, onClose, cID, pID }) => {
   const [formData, setFormData] = useState({
     classID: parseInt(cID),
     studentID: JSON.parse(localStorage.getItem('id')),
@@ -45,7 +45,7 @@ const RatingModal = ({ isOpen, onClose, cID }) => {
           additionalComments: formData.additionalComments
         })
       });
-      window.location.href = `/home/${JSON.parse(localStorage.getItem('id'))}`
+      window.location.href = `/professor/${pID}/${formData.classID}`
     }catch (error){
       console.error('Error:', error);
     }

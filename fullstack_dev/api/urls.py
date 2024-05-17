@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/days-data/', views.get_days_data, name='days_data'),
     path('api/schedule-data/', views.get_schedule_data, name='schedule_data'),
     path('api/rating-data/', views.get_rating_data, name='rating_data'),
+    path('api/ratings/', views.get_ratings, name='ratings_data'),
     path('api/save-rating-data/', save_rating_data, name='save_rating_data'),
     path('api/rating/<int:rating_id>/', delete_rating, name='delete_rating'),
     path('api/register/', RegisterView.as_view(), name='register'),

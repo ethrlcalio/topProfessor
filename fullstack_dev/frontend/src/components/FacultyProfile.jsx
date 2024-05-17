@@ -36,10 +36,10 @@ const FacultyProfile = ({id, ratingCount, commentCount}) => {
             ID Number: <span className="font-normal">{professorData ? `${professorData.professorCode}` : ""}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            Department: <span className="font-normal">{professorData ? `${professorData.program}` : ""}</span>
+            School: <span className="font-normal">{professorData ? `${professorData.division}` : ""}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
-            School: <span className="font-normal">{professorData ? `${professorData.division}` : ""}</span>
+            Department: <span className="font-normal">{professorData ? `${professorData.program}` : ""}</span>
           </h2>
           <h2 className="font-montserrat text-sm text-jet py-1 font-bold">
             Position:{" "}

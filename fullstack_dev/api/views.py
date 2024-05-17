@@ -323,6 +323,23 @@ def get_students(request):
         })
     return JsonResponse(data, safe=False)
 
+def get_ratings(request):
+    ratings = Rating.objects.all()
+    data=[]
+
+    for rating in ratings:
+        data.append({
+            'ratingID': rating.ratingID,
+            'classID': rating.classID_id,
+            'studentID': rating.studentID_id,
+            'rating1': rating.rating1,
+            'rating2': rating.rating2,
+            'rating3': rating.rating3,
+            'rating4': rating.rating4,
+            'comments': rating.comments,
+        })
+    return JsonResponse(data, safe=False)
+
 def csrf_token_view(request):
     token = get_token(request)
     return JsonResponse({'csrfToken': token})

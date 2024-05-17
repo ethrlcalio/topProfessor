@@ -11,6 +11,7 @@ function Navbar() {
     password: ''
   });
   const [isUpdate, setIsUpdate] = useState(false);
+  const [role, setRole] = useState(JSON.parse(localStorage.getItem('role')) ? JSON.parse(localStorage.getItem('role')) : null);
 
   useEffect(() => {
     const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
@@ -54,6 +55,7 @@ function Navbar() {
     if(data){
       setIsLoggedIn(true);
       localStorage.setItem('isLoggedIn', JSON.stringify(true));
+      setRole(JSON.parse(localStorage.getItem('role')));
     }
   }
 
@@ -75,8 +77,9 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              {isLoggedIn && <Link to={`/home/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
-              {isLoggedIn && <Link to={`/faculty/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
+              {role == "student" && isLoggedIn && <Link to={`/home/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Home</Link>}
+              {role == "student" && isLoggedIn && <Link to={`/faculty/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Faculty</Link>}
+              {role == "admin" && isLoggedIn && <Link to={`/dashboard/admin/${JSON.parse(localStorage.getItem('id'))}`} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Dashboard</Link>}
               {!isLoggedIn && <button onClick={openLogin} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log In</button>}
               {isLoggedIn && <button onClick={logOut} className="text-anti-flash hover:bg-mustard hover:text-penn-blue font-montserrat px-3 py-2 rounded-md text-md font-semibold">Log Out</button>}
             </div>

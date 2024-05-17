@@ -80,7 +80,9 @@ const Table = ({id}) => {
                     classCode={schedule_obj.classID}
                     course={schedule_obj.className}
                     instructor={schedule_obj.professorName}
-                    timeSlot={schedule_obj.startTime.slice(0,5) + "-" + schedule_obj.endTime.slice(0,5) + " " + schedule_obj.days}
+                    timeSlot={`${new Date(`01/01/2000 ${schedule_obj.startTime.slice(0, 5)}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - 
+                    ${new Date(`01/01/2000 ${schedule_obj.endTime.slice(0, 5)}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} 
+                    ${schedule_obj.days}`}
                 />
                   ))
                 }

@@ -8,8 +8,8 @@ import EmptyBox from "../../components/EmptyBox";
 import {MetricContext} from '../../context/MetricContext'
 import LineChart from "../../components/LineChart";
 
-const ProfessorProfile = () => {
-  const {id, classCode} = useParams();
+const ProfessorProfileAdmin = () => {
+  const {id} = useParams();
   const [classObj, setClassObj] = useState(null);
   const [ratingData, setRatingData] = useState(null);
   const [ratings, setRatings] = useState({
@@ -25,7 +25,7 @@ const ProfessorProfile = () => {
   const [isDataDone, setIsDataDone] = useState(false);
   const [isRatingsDone, setIsRatingsDone] = useState(false);
   const [isCalculateDone, setIsCalculateDone] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
     console.log(isHidden);
@@ -85,10 +85,10 @@ const ProfessorProfile = () => {
       const flatArray = ratingData.flat();
       setFlatRatings(flatArray);
       setRatingCount(flatArray.length);
-      const filteredArray = flatArray.filter((rating) => rating.classID == classCode && rating.studentID == JSON.parse(localStorage.getItem('id')));
+      /*const filteredArray = flatArray.filter((rating) => rating.classID == classCode && rating.studentID == JSON.parse(localStorage.getItem('id')));
       if(filteredArray && filteredArray.length > 0){
         setIsHidden(true);
-      }
+      }*/
       const commentArray = flatArray.filter((rating) => rating.comments);
       setCommentArray(commentArray);
       setCommentCount(commentArray.length);
@@ -101,39 +101,33 @@ const ProfessorProfile = () => {
     <div className="bg-anti-flash min-h-full">
       <div id="content" className="w-full flex justify-center items-center pt-12">
         <div className="w-2/3 flex flex-col-2 gap-8">
-          <div className="w-2/3 h-full flex flex-col gap-4">
+            <div className="w-2/3 h-full flex flex-col gap-4">
             {/* First Row */}
-            <div className="w-full flex flex-row gap-4">
-              <div className="h-full bg-white rounded-xl shadow-md py-6">
-                {ratings && <MajorRating rating={ratings.overallRating}/>}
-              </div>
-              <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
-                {ratings && metrics.map((metricEntry, index) =>(
-                  <MinorRating key={index} metric={metricEntry} rating={ratings}/>
-                ))}
-              </div>
-            </div>
-            {/* Second Row */}
-            <div className="flex flex-col gap-4">
-              <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-                {!isHidden && <AddButton classID={classCode} profID={id}/>}
-              </div>
-              {/*<div className="w-full h-full p-4 bg-white rounded-xl shadow-md overflow-hidden">
-                <LineChart />
-              </div>*/}
-              {isHidden && commentArray && commentArray.map((rating, index) => (
-                <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
-                  <EmptyBox 
-                    key = {index}
-                    ratingKey={rating.ratingID}
-                    comment={rating.comments}
-                    commenter={rating.studentID}
-                    professorID={id}
-                  />
+                <div className="w-full flex flex-row gap-4">
+                <div className="h-full bg-white rounded-xl shadow-md py-6">
+                    {ratings && <MajorRating rating={ratings.overallRating}/>}
                 </div>
-              ))}
+                <div className="grow grow-y flex flex-col justify-center bg-white rounded-xl shadow-md">
+                    {ratings && metrics.map((metricEntry, index) =>(
+                    <MinorRating key={index} metric={metricEntry} rating={ratings}/>
+                    ))}
+                </div>
+                </div>
+                {/* Second Row */}
+                <div className="flex flex-col gap-4">
+                    {isHidden && commentArray && commentArray.map((rating, index) => (
+                        <div className="w-full h-full bg-white rounded-xl shadow-md overflow-hidden">
+                        <EmptyBox 
+                            key = {index}
+                            ratingKey={rating.ratingID}
+                            comment={rating.comments}
+                            commenter={rating.studentID}
+                            professorID={id}
+                        />
+                        </div>
+                    ))}
+                </div>
             </div>
-          </div>
           <div className="w-1/3 h-min bg-white rounded-xl overflow-x-hidden shadow-md">
             <FacultyProfile id={id} ratingCount={ratingCount} commentCount={commentCount}/>
           </div>
@@ -143,4 +137,4 @@ const ProfessorProfile = () => {
   );
 };
 
-export default ProfessorProfile;
+export default ProfessorProfileAdmin;

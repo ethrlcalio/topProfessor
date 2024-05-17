@@ -2,29 +2,29 @@ import React, {useState,useEffect} from 'react';
 
 const MinorRating = ({ metric, rating }) => {
   let text = metric;
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("-");
 
   useEffect(() => {
     switch (String(text)){
       case "Teaching Proficiency":
-        setValue(isNaN(rating.teachingProficiency) ? "-" : rating.teachingProficiency);
+        setValue(!rating.teachingProficiency || isNaN(rating.teachingProficiency) ? "-" : rating.teachingProficiency);
         break;
       case "Availability & Responsiveness":
-        setValue(isNaN(rating.availabilityResponsiveness) ? "-" : rating.availabilityResponsiveness);
+        setValue(!rating.teachingProficiency || isNaN(rating.availabilityResponsiveness) ? "-" : rating.availabilityResponsiveness);
         break;
       case "Attendance":
-        setValue(isNaN(rating.attendance) ? "-" : rating.attendance);
+        setValue(!rating.teachingProficiency || isNaN(rating.attendance) ? "-" : rating.attendance);
         break;
       default:
         setValue("-");
-        breakl;
+        break;
     }
   }, [rating])
 
   return (
     <div className="flex flex-row gap-4 px-4 py-2 justify-center items-center">
-        <div className={`w-12 h-12 flex items-center justify-center bg-mustard rounded-lg`}>
-            <p className={`font-montserrat font-bold text-penn-blue text-lg`}>
+        <div className="w-12 h-12 flex items-center justify-center bg-mustard rounded-lg">
+            <p className="font-montserrat font-bold text-penn-blue text-lg">
                 {value}
             </p>
         </div>
