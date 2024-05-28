@@ -27,7 +27,14 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "FALSE").lower == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# Ensure that the environment variable exists and is not None
+if "ALLOWED_HOSTS" in os.environ and os.environ["ALLOWED_HOSTS"]:
+    # Split the environment variable value by whitespace
+    ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split()
+else:
+    # Set a default value for ALLOWED_HOSTS if the environment variable is not set or is empty
+    ALLOWED_HOSTS = []
+
 
 
 # Application definition
