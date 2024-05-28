@@ -119,10 +119,10 @@ WSGI_APPLICATION = 'fullstack_dev.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',  # Or the hostname where PostgreSQL is running
+        'NAME': 'topprofessor',
+        'USER': 'topprofessor_user',
+        'PASSWORD': '5r8Icb4VzeMmUBXW1akcCQiV9mLIIrYb',
+        'HOST': 'dpg-cpaikosf7o1s73ahcg40-a',  # Or the hostname where PostgreSQL is running
         'PORT': '5432',       # Default PostgreSQL port
     }
 }
