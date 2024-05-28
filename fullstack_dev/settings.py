@@ -116,19 +116,24 @@ WSGI_APPLICATION = 'fullstack_dev.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'topprofessor',
-        'USER': 'topprofessor_user',
-        'PASSWORD': '5r8Icb4VzeMmUBXW1akcCQiV9mLIIrYb',
-        'HOST': 'dpg-cpaikosf7o1s73ahcg40-a',  # Or the hostname where PostgreSQL is running
-        'PORT': '5432',       # Default PostgreSQL port
-    }
-}
+import os
+import dj_database_url
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# Use the DATABASES configuration if DATABASE_URL is not provided
+if "DATABASE_URL" in os.environ:
+    DATABASES["default"] = dj_database_url.parse(os.environ["DATABASE_URL"])
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'topprofessor',
+            'USER': 'topprofessor_user',
+            'PASSWORD': '5r8Icb4VzeMmUBXW1akcCQiV9mLIIrYb',
+            'HOST': 'dpg-cpaikosf7o1s73ahcg40-a',  # Or the hostname where PostgreSQL is running
+            'PORT': '5432',       # Default PostgreSQL port
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
