@@ -3,6 +3,7 @@ from .views import ProfessorView, StudentView, ClassView, DaysView, ScheduleView
 from . import views
 
 urlpatterns = [
+    path('', ProfessorView.as_view()),
     path('professors/', ProfessorView.as_view()),
     path('students', StudentView.as_view()),
     path('classes', ClassView.as_view()),
